@@ -1,0 +1,239 @@
+<ScreenRegister>:
+    name:'ScreenRegister'
+    Widget:
+        canvas.before:
+            Color:
+                rgba: 0.2,0.3,0.4,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            pos: root.width * 0.1, root.height * 0.9
+            size: root.width * 1, root.height * 0.05
+            id: title
+            text:"register tablet"
+            font_size: 16
+            color: 1,1,1,1
+
+        Label:
+            pos: root.width * 0.1, root.height * 0.6
+            size: root.width * 0.2, root.height * 0.05
+            id: tablet_id_label
+            text:"טלבאט"
+            font_name: 'fonts/the_font.ttf'
+            font_size: 16
+            color: 1,1,1,1
+
+        LoggedTextInput:
+            id: tablet_id
+            name: "tablet_id"
+            font_size: 16
+            text:"0"
+            pos: root.width * 0.3, root.height * 0.6
+            size: root.width * 0.2, root.height * 0.05
+
+        Label:
+            pos: root.width * 0.1, root.height * 0.7
+            size: root.width * 0.2, root.height * 0.05
+            id: group_id_label
+            text:"הצובק"
+            font_name: 'fonts/the_font.ttf'
+            font_size: 16
+            color: 1,1,1,1
+
+        LoggedTextInput:
+            id: group_id
+            name: "group_id"
+            font_size: 16
+            text:"0"
+            pos: root.width * 0.3, root.height * 0.7
+            size: root.width * 0.2, root.height * 0.05
+
+        Label:
+            pos: root.width * 0.1, root.height * 0.8
+            size: root.width * 0.2, root.height * 0.05
+            id: subject_id_label
+            text:"תוהז תדועת"
+            font_name: 'fonts/the_font.ttf'
+            font_size: 16
+            color: 1,1,1,1
+
+        LoggedTextInput:
+            id: subject_id
+            name: "subject_id"
+            font_size: 16
+            text:"0"
+            pos: root.width * 0.3, root.height * 0.8
+            size: root.width * 0.2, root.height * 0.05
+
+        Label:
+            pos: root.width * 0.1, root.height * 0.5
+            size: root.width * 0.2, root.height * 0.05
+            id: subject_id_label
+            text:"יוסינ יאנת"
+            font_name: 'fonts/the_font.ttf'
+            font_size: 16
+            color: 1,1,1,1
+
+        LoggedSpinner:
+            id: world_spinner
+            text: 'condition'
+            font_size: 16
+            background_color: 0.2,0.2,0.2,1
+            values: ('robot','tablet')
+            size: root.width * 0.15, root.height * 0.05
+            pos: root.width * 0.3, root.height * 0.5
+            on_text: app.select_condition(self)
+
+        LoggedButton:
+            id: tablet_id_btn
+            name: 'register_tablet'
+            background_color: 0.5,0.5,0.5,1
+            background_normal: ''
+            text: 'register tablet'
+            font_size: 16
+            size: root.width * 0.15, root.height * 0.05
+            pos: root.width * 0.3, root.height * 0.3
+            on_press: app.register_tablet()
+
+        Label:
+            pos: root.width * 0, root.height * 0.1
+            size: root.width * 1, root.height * 0.05
+            id: callback_label
+            text:"callback"
+            font_size: 16
+            color: 1,1,1,1
+
+<ScreenScaleImage>:
+    name: 'ScreenScaleImage'
+    Label:
+        text: "ScreenScaleImage"
+<ScreenCreateList>:
+    name: 'ScreenCreateList'
+
+<ScreenMarkList>:
+    name: 'ScreenMarkLost'
+
+<ScreenDyslexia>:
+    name: 'ScreenDyslexia'
+    BoxLayout:
+        orientation: 'vertical'
+        id: 'single'
+        canvas.before:
+            Color:
+                rgba: 1,1,1,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        BoxLayout:
+            id: menu
+            pos: 0 , 0
+            size: root.width, root.height * 0.1
+            size_hint_y: None
+            height: '48dp'
+
+            ToggleButtonDyslexia:
+                id: menu_summary
+                text:'ןוחביא'
+                font_name: 'fonts/the_font.ttf'
+                group: 'Menu'
+                on_press:  app.change_tab('diagnosis')
+                name: 'menu_summary'
+
+            ToggleButtonDyslexia:
+                id: menu_tefel_summary
+                text:'לפת םוכיס'
+                font_name: 'fonts/the_font.ttf'
+                group: 'Menu'
+                on_press:  app.change_tab('tefel_summary')
+                name: 'menu_tefel_summary'
+
+            ToggleButtonDyslexia:
+                id: menu_tefel
+                text:'לפת תולימ'
+                font_name: 'fonts/the_font.ttf'
+                group: 'Menu'
+                on_press:  app.change_tab('tefel')
+                name: 'menu_tefel'
+
+            ToggleButtonDyslexia:
+                id: menu_single_summary
+                text:'תודדוב םוכיס'
+                font_name: 'fonts/the_font.ttf'
+                group: 'Menu'
+                on_press:  app.change_tab('single_summary')
+                name: 'menu_single_summary'
+
+            ToggleButtonDyslexia:
+                id: menu_single
+                text: 'תודדוב םילימ'
+                font_name: 'fonts/the_font.ttf'
+                group: 'Menu'
+                state: 'down'
+                on_press:  app.change_tab('single')
+                name: 'menu_single'
+
+        LabelDyslexia:
+            #text: '   13 - ליג  ,הבקנ - ןימ'
+            size_hint_y: None
+            height: '29sp'
+            bcolor: 52/255.0, 164/255.0, 204/255.0, 1
+            bcolor: 1,1,1,1
+
+        FloatLayout:
+            size: root.width, root.height
+            pos: 0,0
+
+            FloatLayout:
+                ScrollView:
+                    id: scroll_content
+                    do_scroll_x: False
+                    bar_width: 10
+                    padding: 5
+                    opacity: 1
+                    disables: False
+                    scroll_type: ['bars','content']
+
+
+            FloatLayout: #this is the help widget that appear in the tablet condition when a ? is pressed.
+                id: help_widget
+                opacity: 0
+                size_hint:(0.7,0.4)
+                pos_hint: {'center_x':0.5, 'y':0.7}
+                #size_hint_y: None
+                bcolor: 0.3,0.3,1,1
+                canvas.before:
+                    Color:
+                        rgba: self.bcolor
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                Label:
+                    id: help_label
+                    text: '  דכגדגכ דגכדגכ  דגכגדכ דגכ דגכדגכ דגכדגכדגכ דגכדגכדגככ דגכדגכדגכגכד דגכדגכדגכדגכ דגכדגכדגכדג דגכדגכדגכדגכד דגכדגכדגכדג דגכדגכדגכדגכ דגכדגכדגכדג דגכדגכדגדגכגדכ eדגכדגכדכגדכ דגכדגכדדגכ'
+                    halign: 'right'
+                    valign: 'middle'
+                    text_size: self.width*0.9, self.height
+                    color: 0,0,0,1
+                    size_hint:(0.95,0.8)
+                    pos_hint: {'center_x':0.5,'center_y':0.45}
+                    font_size: '14sp'
+                    font_name: 'fonts/the_font.ttf'
+                    bcolor: 1,1,1,1
+                    borders: 2,'solid',(1,1,1,1.1)
+                    canvas.before:
+                        Color:
+                            rgba: self.bcolor
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                Button:
+                    id: close_help_button
+                    size_hint:(0.05,0.1)
+                    pos_hint: {'center_x':0.95,'center_y':0.92}
+                    text:'x'
+                    on_press: app.press_close_help()
+
+
+
+
