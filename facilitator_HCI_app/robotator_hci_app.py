@@ -15,6 +15,7 @@ class MyScreenManager(ScreenManager):
 
 
 class RobotatorHCIApp(App):
+    #Robotator
     def build(self):
         self.the_app = self
         Builder.load_file("robotatorHCI.kv")
