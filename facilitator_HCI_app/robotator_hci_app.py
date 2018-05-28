@@ -7,12 +7,14 @@ from kivy.uix.checkbox import CheckBox
 from kivy_classes import *
 from kivy_communication import *
 from screen_register import *
+from screen_create_list import *
+from screen_scale_image import *
+from screen_mark_list import *
 
 from kivy.properties import ListProperty, ObjectProperty, BooleanProperty
 
 class MyScreenManager(ScreenManager):
     the_app = None
-
 
 class RobotatorHCIApp(App):
     #Robotator
@@ -23,9 +25,17 @@ class RobotatorHCIApp(App):
         self.server_ip_end = 0
         self.screen_manager = MyScreenManager()
         screen_register = ScreenRegister(self)
+        screen_mark_list = ScreenMarkList(self)
+        screen_create_list = ScreenCreateList(self)
+        screen_scale_image = ScreenScaleImage(self)
         self.screen_manager.add_widget(screen_register)
-        #self.screen_manager.current = 'ScreenDyslexia'  #'ScreenRegister'
-        self.screen_manager.current = 'ScreenRegister'
+        self.screen_manager.add_widget(screen_create_list)
+        self.screen_manager.add_widget(screen_mark_list)
+        self.screen_manager.add_widget(screen_scale_image)
+        #self.screen_manager.current = 'ScreenCreateList'  #'ScreenRegister'
+        #self.screen_manager.current = 'ScreenMarkList'
+        self.screen_manager.current = 'ScreenScaleImage'
+        #self.screen_manager.current = 'ScreenRegister'
         self.condition = 'robot'
 
         self.try_connection()
