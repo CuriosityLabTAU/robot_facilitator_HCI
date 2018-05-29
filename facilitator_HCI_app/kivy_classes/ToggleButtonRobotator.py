@@ -7,7 +7,7 @@ from kivy.lang import Builder
 from kivy_communication import logged_widgets
 
 Builder.load_string("""
-<ToggleButtonDyslexia>:
+<ToggleButtonRobotator>:
   color: 1, 1, 1, 1
   size_hint_y: None
   height: '40dp'
@@ -16,7 +16,7 @@ Builder.load_string("""
 
 """)
 
-class ToggleButtonDyslexia(logged_widgets.LoggedToggleButton):
+class ToggleButtonRobotator(logged_widgets.LoggedToggleButton):
   pass
 
-Factory.register('KivyB', module='ToggleButtonDyslexia')
+Factory.register('KivyB', module='ToggleButtonRobotator')

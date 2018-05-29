@@ -8,14 +8,14 @@ from kivy.uix.spinner import SpinnerOption
 from kivy.factory import Factory
 from kivy.lang import Builder
 from kivy.properties import ListProperty, ObjectProperty, BooleanProperty
-from SpinnerOptionDyslexia import SpinnerOptionDyslexia
+from SpinnerOptionRobotator import SpinnerOptionRobotator
 from kivy.uix.gridlayout import GridLayout
 from kivy_communication import logged_widgets
 #from kivy_communication import *
 
 
 Builder.load_string("""
-<SpinnerDyslexia>:
+<SpinnerRobotator>:
     canvas.before:
         Color:
             rgba: 1,1,1,1
@@ -30,7 +30,7 @@ Builder.load_string("""
 """)
 
 
-class SpinnerDyslexia(logged_widgets.LoggedSpinner):
+class SpinnerRobotator(logged_widgets.LoggedSpinner):
     pass
 
-Factory.register('KivyB', module='SpinnerDyslexia')
+Factory.register('KivyB', module='SpinnerRobotator')

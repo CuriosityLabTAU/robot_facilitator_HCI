@@ -9,13 +9,13 @@ from kivy.factory import Factory
 from kivy.lang import Builder
 
 Builder.load_string("""
-<SpinnerOptionDyslexia>:
+<SpinnerOptionRobotator>:
     font_name: "fonts/the_font.ttf"
     font_size: '18sp'
     height: '40px'
 """)
 
-class SpinnerOptionDyslexia(SpinnerOption):
+class SpinnerOptionRobotator(SpinnerOption):
     pass
 
-Factory.register('KivyB', module='SpinnerOptionDyslexia')
+Factory.register('KivyB', module='SpinnerOptionRobotator')

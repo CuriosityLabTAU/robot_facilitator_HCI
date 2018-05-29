@@ -1,19 +1,19 @@
-from kivy.uix.checkbox import CheckBox
+from kivy.uix.label import Label
 from kivy.properties import ListProperty
 
 from kivy.factory import Factory
 from kivy.lang import Builder
-from kivy_communication import logged_widgets
-
 
 Builder.load_string("""
-<CheckBoxDyslexia>:
-  bcolor: 235/255.0, 234/255.0,236/255.0, 1
+<LabelHeadingRobotator>:
+  bcolor: 1, 164/255.0, 15/255.0,1
   color: 0, 0, 0, 1
   size_hint_y: None
   height: '40dp'
   font_size: '18sp'
   font_name: 'fonts/the_font.ttf'
+  text_size: self.width * 0.87, self.height
+  halign: 'right'
   canvas.before:
     Color:
       rgba: self.bcolor
@@ -21,7 +21,8 @@ Builder.load_string("""
       pos: self.pos
       size: self.size
 """)
-class CheckBoxDyslexia(logged_widgets.LoggedCheckBox):
+
+class LabelHeadingRobotator(Label):
   bcolor = ListProperty([1, 1, 1 ,1])
 
-Factory.register('KivyB', module='CheckBoxDyslexia')
+Factory.register('KivyB', module='LabelHeadingRobotator')

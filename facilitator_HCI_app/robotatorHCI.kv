@@ -110,8 +110,48 @@
         text: "ScreenScaleImage"
 <ScreenCreateList>:
     name: 'ScreenCreateList'
-    Label:
-        text: "ScreenCreateList"
+    BoxLayout:
+        orientation: 'vertical'
+        padding: ['20dp','20dp','20dp','20dp']
+        spacing: '20dp'
+        canvas.before:
+            Color:
+                rgba: 0.2,0.3,0.4,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        TimerLabel:
+            background_color: 1,0,0,1
+            id: timer_time
+            text:""
+            font_name: "fonts/the_font.ttf"
+            font_size: '20sp'
+            text_size: self.size
+            halign: 'left'
+            color: 1,1,1,1
+        LabelRobotator:
+            text: "להק ומשיר"
+        TextInputRobotator:
+            id: text_input_1
+            name: "text_input_1"
+        TextInputRobotator:
+            id: text_input_2
+            name: "text_input_2"
+        TextInputRobotator:
+            id: text_input_3
+            name: "text_input_3"
+        TextInputRobotator:
+            id: text_input_4
+            name: "text_input_4"
+        TextInputRobotator:
+            id: text_input_5
+            name: "text_input_5"
+        ButtonRobotator:
+            id: btn_done
+            name: 'audience_done'
+            text: 'יתמייס'
+
+
 <ScreenMarkList>:
     name: 'ScreenMarkList'
     Label:

@@ -5,24 +5,24 @@ from kivy.factory import Factory
 from kivy.lang import Builder
 
 Builder.load_string("""
-<LabelDyslexia>:
+<LabelRobotator>:
   bcolor: 235/255.0, 234/255.0,236/255.0, 1
-  color: 0, 0, 0, 1
+  color: 1, 1, 1, 1
   size_hint_y: None
   height: '40dp'
-  font_size: '18sp'
+  font_size: '20sp'
   font_name: 'fonts/the_font.ttf'
-  text_size: self.width * 0.87, self.height
+  text_size: self.width, self.height
   halign: 'right'
-  canvas.before:
-    Color:
-      rgba: self.bcolor
-    Rectangle:
-      pos: self.pos
-      size: self.size
+  #canvas.before:
+  #  Color:
+      #rgba: self.bcolor
+  #  Rectangle:
+  #    pos: self.pos
+  #    size: self.size
 """)
 
-class LabelDyslexia(Label):
+class LabelRobotator(Label):
   bcolor = ListProperty([1, 1, 1 ,1])
 
-Factory.register('KivyB', module='LabelDyslexia')
+Factory.register('KivyB', module='LabelRobotator')

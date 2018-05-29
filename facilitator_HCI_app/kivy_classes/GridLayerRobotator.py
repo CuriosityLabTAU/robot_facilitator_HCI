@@ -6,7 +6,7 @@ from kivy.lang import Builder
 from kivy.uix.gridlayout import GridLayout
 
 Builder.load_string("""
-<GridLayoutDyslexia>:
+<GridLayoutRobotator>:
     canvas.before:
         Color:
             rgba: 1,1,1,1
@@ -24,7 +24,7 @@ Builder.load_string("""
 """)
 
 Builder.load_string("""
-<GridLayoutDyslexia4>:
+<GridLayoutRobotator4>:
     canvas.before:
         Color:
             rgba: 1,1,1,1
@@ -42,7 +42,7 @@ Builder.load_string("""
 """)
 
 Builder.load_string("""
-<GridLayoutDyslexia3>:
+<GridLayoutRobotator3>:
     canvas.before:
         Color:
             rgba: 1,1,1,1
@@ -61,7 +61,7 @@ Builder.load_string("""
 
 
 Builder.load_string("""
-<GridLayoutDyslexia2>:
+<GridLayoutRobotator2>:
     canvas.before:
         Color:
             rgba: 1,1,1,1
@@ -78,19 +78,19 @@ Builder.load_string("""
     size_hint_x: 1
 """)
 
-class GridLayoutDyslexia(GridLayout):
+class GridLayoutRobotator(GridLayout):
   bcolor = ListProperty([235/255.0, 234/255.0,236/255.0,1])
 
-class GridLayoutDyslexia4(GridLayout):
+class GridLayoutRobotator4(GridLayout):
   bcolor = ListProperty([235/255.0, 234/255.0,236/255.0,1])
 
-class GridLayoutDyslexia3(GridLayout):
+class GridLayoutRobotator3(GridLayout):
   bcolor = ListProperty([235/255.0, 234/255.0,236/255.0,1])
 
-class GridLayoutDyslexia2(GridLayout):
+class GridLayoutRobotator2(GridLayout):
   bcolor = ListProperty([235/255.0, 234/255.0,236/255.0,1])
 
-Factory.register('KivyB', module='GridLayoutDyslexia')
-Factory.register('KivyB', module='GridLayoutDyslexia4')
-Factory.register('KivyB', module='GridLayoutDyslexia3')
-Factory.register('KivyB', module='GridLayoutDyslexia2')
+Factory.register('KivyB', module='GridLayoutRobotator')
+Factory.register('KivyB', module='GridLayoutRobotator4')
+Factory.register('KivyB', module='GridLayoutRobotator3')
+Factory.register('KivyB', module='GridLayoutRobotator2')

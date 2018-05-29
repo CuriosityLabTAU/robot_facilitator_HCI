@@ -7,16 +7,19 @@ from kivy.lang import Builder
 from kivy_communication import logged_widgets
 
 Builder.load_string("""
-<ButtonDyslexia>:
+<ButtonRobotator>:
   color: 1, 1, 1, 1
-  size_hint_y: None
+  size_hint: None, None
   height: '40dp'
-  font_size: '18sp'
+  width: '80dp'
+  font_size: '20sp'
   font_name: 'fonts/the_font.ttf'
-  on_press: app.press_help_button(self)
+  background_color: 0.5,0.5,0.5,1
+  background_normal: ''
+  on_press: app.on_btn_done()
 """)
 
-class ButtonDyslexia(logged_widgets.LoggedButton):
+class ButtonRobotator(logged_widgets.LoggedButton):
   pass
 
-Factory.register('KivyB', module='ButtonDyslexia')
+Factory.register('KivyB', module='ButtonRobotator')

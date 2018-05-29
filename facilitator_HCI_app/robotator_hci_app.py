@@ -10,11 +10,46 @@ from screen_register import *
 from screen_create_list import *
 from screen_scale_image import *
 from screen_mark_list import *
+from kivy.clock import *
+
 
 from kivy.properties import ListProperty, ObjectProperty, BooleanProperty
 
 class MyScreenManager(ScreenManager):
     the_app = None
+
+class TimerLabel(Label):
+    time = -1
+    def start_timer(self, duration=5):
+        self.stop_timer()
+        print("start_timer?")
+        if (self.time>-1): # in case the timer was already on, unschedule it
+            Clock.unschedule(self.event)
+
+        self.time = duration
+        self.event = Clock.schedule_interval(self.advance, 1)
+        min,sec = divmod(duration, 60)
+        str_time = "%d:%02d" % (min, sec)
+        self.text = str_time
+
+    def stop_timer(self):
+        try:
+            Clock.unschedule(self.event)
+            self.time = -1
+            self.text = ""
+        except:
+            print ("stop timer failed")
+
+    def advance(self, dt):
+        min, sec = divmod(self.time, 60)
+        str_time = "%d:%02d ראשנ ןמז " % (min, sec)
+        print("self.time", self.time, str_time)
+        self.text = str_time
+        if self.time <= 0:
+            Clock.unschedule(self.event)
+            self.text = 'ןמזה רמגנ'
+        else:
+            self.time -= 1
 
 class RobotatorHCIApp(App):
     #Robotator
@@ -32,12 +67,12 @@ class RobotatorHCIApp(App):
         self.screen_manager.add_widget(screen_create_list)
         self.screen_manager.add_widget(screen_mark_list)
         self.screen_manager.add_widget(screen_scale_image)
-        #self.screen_manager.current = 'ScreenCreateList'  #'ScreenRegister'
+        self.screen_manager.current = 'ScreenCreateList'  #'ScreenRegister'
         #self.screen_manager.current = 'ScreenMarkList'
-        self.screen_manager.current = 'ScreenScaleImage'
+        #self.screen_manager.current = 'ScreenScaleImage'
         #self.screen_manager.current = 'ScreenRegister'
         self.condition = 'robot'
-
+        self.screen_manager.current_screen.ids['timer_time'].start_timer(int(120))
         self.try_connection()
         return self.screen_manager
 
@@ -128,12 +163,19 @@ class RobotatorHCIApp(App):
 
 
     # ==========================================================================
+    # Interaction in ScreenCreateList
+    # ==========================================================================
+
+    def on_btn_done(self,**kwargs):
+        print ("btn done screen create list pressed")
+        self.screen_manager.get_screen('ScreenCreateList').on_btn_done()
+
+    # ==========================================================================
     # Interaction in ScreenDyslexia
     # ==========================================================================
 
     def mistake_type_selected(self,spinner_inst):
         # the student picked mistake type. update the relevant variables
-        screen_dyslexia = self.screen_manager.get_screen('ScreenDyslexia')
         self.screen_manager.get_screen('ScreenDyslexia').mistake_type_selected(spinner_inst)
 
     def press_help_button(self,btn_inst):

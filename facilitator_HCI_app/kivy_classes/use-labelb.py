@@ -4,7 +4,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.app import App
 from kivy.lang import Builder
 
-import LabelDyslexia
+import LabelRobotator
 
 Builder.load_string("""
 <MyGrid>:
