@@ -35,6 +35,10 @@ class ManagerNode():
 
     session = 'session1'
     robot_end_signal = {}
+    tablets_done = {}
+    tablets_agree = {}
+    tablets_mark = []
+    tablets_continue = {}
 
 
     def __init__(self):
@@ -56,6 +60,10 @@ class ManagerNode():
         print(self.tablets_audience_agree)
 
         self.robot_end_signal = {}
+        self.tablets_done = {}
+        self.tablets_agree = {}
+        self.tablets_mark = []
+        self.tablets_continue = {}
 
         rospy.spin() #spin() simply keeps python from exiting until this node is stopped
 
@@ -88,7 +96,7 @@ class ManagerNode():
         data_file = open("robotator_study.json")
         logics_json = json.load(data_file)
         # self.poses_conditions = logics_json['conditions']
-        self.study_sequence = logics_json['sequence'][self.session]
+        self.study_sequence = logics_json[self.session]
 
         self.actions = {}
 
@@ -98,6 +106,7 @@ class ManagerNode():
         self.run_study_action(self.actions['start'])
 
     def run_study_action(self, action):
+        print(action)
         if action['target'] == 'tablet':
             if "tablets" in action:
                 for tablet_id in action['tablets']:
@@ -113,6 +122,9 @@ class ManagerNode():
 
         elif action['target'] == 'robot':
             if action["action"] in ["run_behavior", "play_audio_file"]:
+                # DEBUG
+                action['parameters'] = ['robot_facilitator-ad2c5c/robotator_behaviors_old/r5', 'wait']
+                action['action'] = 'run_behavior'
                 nao_message = {"action": action['action'],
                                "parameters": action['parameters']}
                 self.robot_end_signal[action['parameters'][0]] = False
@@ -127,7 +139,8 @@ class ManagerNode():
             elif action["action"] in ["sleep"]:
                 print("start_timer")
                 # either go on timeout
-                self.sleep_timer = Timer(action["seconds"], self.run_study_action, [action["end"]["timeout"]])
+                self.sleep_timer = Timer(float(action["seconds"]), self.run_study_action,
+                                         [self.actions[action["end"]["timeout"]]])
                 self.sleep_timer.start()
 
                 # or go on something else
@@ -389,7 +402,12 @@ class ManagerNode():
             self.waiting = False
             self.waiting_robot = False
 
-            self.robot_end_signal[data.data] = True
+            try:
+                signal = json.loads(data.data)['parameters'][0]
+
+                self.robot_end_signal[signal] = True
+            except:
+                pass
             # message = data.data
             # rospy.loginfo(message)
             # self.tablet_publisher.publish(message)
@@ -416,10 +434,10 @@ class ManagerNode():
 
 
     def callback_log(self, data):
-        print('----- log -----')
-        print('----- log -----', data)
+        # print('----- log -----')
+        # print('----- log -----', data)
         log = json.loads(data.data)
-        print(log)
+        # print(log)
 
         if 'btn_done' in log['obj'] and log['action'] == 'press':
             client_ip = log['client_ip']
@@ -501,49 +519,49 @@ class ManagerNode():
                     self.run_study_action(self.actions[self.robot_end_signal['not_all_same']])
 
 
-        if 'audience_done' in log['obj'] and log['action'] == 'press':
-            client_ip = log['client_ip']
-            tablet_id = self.tablets_ids[client_ip]
-            subject_id = self.tablets_subjects_ids[tablet_id]
-            self.audience_done(tablet_id,subject_id,client_ip)
-
-        if 'audience_group_done' in log['obj'] and log['action'] == 'press':
-            client_ip = log['client_ip']
-            tablet_id = self.tablets_ids[client_ip]
-            subject_id = self.tablets_subjects_ids[tablet_id]
-            self.audience_group_done(tablet_id,subject_id,client_ip)
-
-        if 'audience_list' in log['obj']:
-            if 'text' in log['action']:
-                if self.tablets_ids[log['client_ip']] not in self.tablet_audience_data:
-                    self.tablet_audience_data[self.tablets_ids[log['client_ip']]] = 0
-                self.tablet_audience_data[self.tablets_ids[log['client_ip']]] += 1
-                print("self.tablet_audience_data", self.tablet_audience_data)
-
-        if 'agree' in log['obj']:
-            print("agree in")
-            # if self.tablets_ids[log['client_ip']] not in self.tablets_audience_agree.values():
-            #     self.tablets_audience_agree[int(self.tablets_ids[log['client_ip']])] = False
-            if log['obj'] == 'agree_list' and log['action'] == 'down':
-                print("agree_list True")
-                self.tablets_audience_agree[int(self.tablets_ids[log['client_ip']])] = True
-            elif (log['action'] == 'down'):  #dont_agree_list
-                print("agree_list False")
-                self.tablets_audience_agree[int(self.tablets_ids[log['client_ip']])] = False
-
-            allVoted = True
-            i=1
-            print("self.tablets_audience_agree=", self.tablets_audience_agree)
-            while i <= self.number_of_tablets:
-                if (self.tablets_audience_agree[i] == None):
-                    allVoted = False
-                i += 1
-            if (allVoted == True):
-                self.waiting_timer = False
-                self.sleep_timer.cancel()
-                print("self.sleep_timer.cancel() ALL VOTED")
-                self.waiting = False
-                self.waiting_timer = False
+        # if 'audience_done' in log['obj'] and log['action'] == 'press':
+        #     client_ip = log['client_ip']
+        #     tablet_id = self.tablets_ids[client_ip]
+        #     subject_id = self.tablets_subjects_ids[tablet_id]
+        #     self.audience_done(tablet_id,subject_id,client_ip)
+        #
+        # if 'audience_group_done' in log['obj'] and log['action'] == 'press':
+        #     client_ip = log['client_ip']
+        #     tablet_id = self.tablets_ids[client_ip]
+        #     subject_id = self.tablets_subjects_ids[tablet_id]
+        #     self.audience_group_done(tablet_id,subject_id,client_ip)
+        #
+        # if 'audience_list' in log['obj']:
+        #     if 'text' in log['action']:
+        #         if self.tablets_ids[log['client_ip']] not in self.tablet_audience_data:
+        #             self.tablet_audience_data[self.tablets_ids[log['client_ip']]] = 0
+        #         self.tablet_audience_data[self.tablets_ids[log['client_ip']]] += 1
+        #         print("self.tablet_audience_data", self.tablet_audience_data)
+        #
+        # if 'agree' in log['obj']:
+        #     print("agree in")
+        #     # if self.tablets_ids[log['client_ip']] not in self.tablets_audience_agree.values():
+        #     #     self.tablets_audience_agree[int(self.tablets_ids[log['client_ip']])] = False
+        #     if log['obj'] == 'agree_list' and log['action'] == 'down':
+        #         print("agree_list True")
+        #         self.tablets_audience_agree[int(self.tablets_ids[log['client_ip']])] = True
+        #     elif (log['action'] == 'down'):  #dont_agree_list
+        #         print("agree_list False")
+        #         self.tablets_audience_agree[int(self.tablets_ids[log['client_ip']])] = False
+        #
+        #     allVoted = True
+        #     i=1
+        #     print("self.tablets_audience_agree=", self.tablets_audience_agree)
+        #     while i <= self.number_of_tablets:
+        #         if (self.tablets_audience_agree[i] == None):
+        #             allVoted = False
+        #         i += 1
+        #     if (allVoted == True):
+        #         self.waiting_timer = False
+        #         self.sleep_timer.cancel()
+        #         print("self.sleep_timer.cancel() ALL VOTED")
+        #         self.waiting = False
+        #         self.waiting_timer = False
 
         if self.listen_to_text:
             self.text_audience_group[log['obj']] = log['comment']

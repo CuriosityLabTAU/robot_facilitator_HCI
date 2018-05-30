@@ -1,24 +1,24 @@
 {
-
   "session1": [
-    {"tag": "start", "target": "tablet",
+    {
+      "tag": "start", "target": "tablet",
       "action":"show_screen", "screen_name":"ScreenRobotIntroduction", "tablets":[1,2,3,4,5],
       "next": "robot_introduction"
     },
     {"tag": "robot_introduction", "target": "robot",
       "action":"run_behavior", "parameters":["robot_introduction", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_activity1_01"
     },
 
     {"tag": "robot_activity1_01", "target": "robot",
       "action":"run_behavior", "parameters":["activity1_01", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_activity1_02"
     },
     {"tag": "robot_activity1_02", "target": "robot",
       "action":"run_behavior", "parameters":["activity1_02", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "tablet_show_audience_list_individual"
     },
     {"tag": "tablet_show_audience_list_individual", "target": "tablet",
@@ -27,17 +27,17 @@
     },
     {"tag": "robot_activity1_04", "target": "robot",
       "action":"run_behavior", "parameters":["activity1_04", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_sleep_activity1_01"
     },
     {"tag": "robot_sleep_activity1_01", "target": "robot",
-      "action":"sleep", "seconds":"90",
+      "action":"sleep", "seconds":"5",
       "end": {"timeout": "robot_30sec_activity1_01", "done": "robot_activity1_group_01"},
       "next": "robot_sleep_activity1_01"
     },
     {"tag": "robot_30sec_activity1_01", "target": "robot",
       "action":"play_audio_file", "parameters": ["30_seconds_left"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_sleep_activity1_02"
     },
     {"tag": "robot_sleep_activity1_02", "target": "robot",
@@ -48,7 +48,7 @@
 
     {"tag": "robot_activity1_group_01", "target": "robot",
       "action":"run_behavior", "parameters":["activity1_group_01", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "tablet_show_audience_list_group"
     },
     {"tag": "tablet_show_audience_list_group", "target": "tablet",
@@ -66,7 +66,7 @@
     },
     {"tag": "robot_30sec_activity1_02", "target": "robot",
       "action":"play_audio_file", "parameters": ["30_seconds_left"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_sleep_activity1_04"
     },
     {"tag": "robot_sleep_activity1_04", "target": "robot",
@@ -76,7 +76,7 @@
 
     {"tag": "robot_activity1_group_02", "target": "robot",
       "action":"run_behavior", "parameters":["activity1_group_02", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "tablet_show_audience_list_group"
     },
     {"tag": "tablet_show_agree_buttons", "target": "tablet",
@@ -89,24 +89,24 @@
     },
     {"tag": "robot_activity1_group_03", "target": "robot",
       "action":"run_behavior", "parameters":["activity1_group_03", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_activity2_01"
     },
     {"tag": "robot_activity1_group_04", "target": "robot",
       "action":"run_behavior", "parameters":["activity1_group_04", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_activity2_01"
     },
 
 
     {"tag": "robot_activity2_01", "target": "robot",
       "action":"run_behavior", "parameters":["activity2_01", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_activity2_02"
     },
     {"tag": "robot_activity2_02", "target": "robot",
       "action":"run_behavior", "parameters":["activity2_02", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "tablet_show_question_mark_list_image"
     },
     {"tag": "tablet_show_question_mark_list_image", "target": "tablet",
@@ -115,7 +115,7 @@
     },
     {"tag": "robot_activity2_03", "target": "robot",
       "action":"run_behavior", "parameters":["activity2_03", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_sleep_activity2_01"
     },
     {"tag": "robot_sleep_activity2_01", "target": "robot",
@@ -124,12 +124,12 @@
     },
     {"tag": "robot_activity2_04", "target": "robot",
       "action":"run_behavior", "parameters":["activity2_04", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_sleep_activity2_01"
     },
     {"tag": "robot_activity2_05", "target": "robot",
       "action":"run_behavior_with_lookat", "parameters":["activity2_05", "wait"], "lookat": [],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_sleep_activity2_02"
     },
     {"tag": "robot_sleep_activity2_02", "target": "robot",
@@ -138,13 +138,13 @@
     },
     {"tag": "robot_activity2_06", "target": "robot",
       "action":"run_behavior", "parameters":["activity2_06", "wait"], "lookat": [],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_activity2_07"
     },
 
     {"tag": "robot_activity2_07", "target": "robot",
       "action":"run_behavior", "parameters":["activity2_07", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "tablet_show_question_mark_list_image"
     },
     {"tag": "tablet_show_question_mark_list_image", "target": "tablet",
@@ -153,7 +153,7 @@
     },
     {"tag": "robot_activity2_08", "target": "robot",
       "action":"run_behavior", "parameters":["activity2_08", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_sleep_activity2_03"
     },
     {"tag": "robot_sleep_activity2_03", "target": "robot",
@@ -162,12 +162,12 @@
     },
     {"tag": "robot_activity2_09", "target": "robot",
       "action":"run_behavior", "parameters":["activity2_09", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_sleep_activity2_03"
     },
     {"tag": "robot_activity2_10", "target": "robot",
       "action":"run_behavior_with_lookat", "parameters":["activity2_10", "wait"], "lookat": [],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_sleep_activity2_04"
     },
     {"tag": "robot_sleep_activity2_04", "target": "robot",
@@ -176,112 +176,13 @@
     },
     {"tag": "robot_activity2_11", "target": "robot",
       "action":"run_behavior", "parameters":["activity2_11", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+
       "next": "robot_activity2_end"
     },
 
     {"tag": "robot_activity2_end", "target": "robot",
       "action":"run_behavior", "parameters":["activity2_end", "wait"],
-      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
       "next": "end"
-    },
-
-
-
-
-/*
-
-
-    {"action":"run_behavior", "parameters":["activity2_01", "wait"]},
-    {"action":"run_behavior", "parameters":["activity2_02", "wait"]},
-    {"action":"run_behavior", "parameters":["activity2_03", "wait"]},
-
-    {"action":"show_screen", "screen_name":"ScreenMarkListImage", "tablets":[1,2,3,4,5], "parameters": ["statement_1"]},
-    {"action":"run_behavior", "parameters":["activity2_04", "wait"]},
-    {"action":"sleep", "seconds":"60"}, *if-then: timeout, all-finished
-
-    *not all the same
-    {"action":"run_behavior", "parameters":["activity2_04", "wait"]},
-
-    {"action":"show_screen", "screen_name":"ScreenMarkListImage", "tablets":[1,2,3,4,5], "parameters": ["statement_2"]},
-    {"action":"sleep", "seconds":"60"}, *if-then: timeout, all-finished
-    {"action":"show_screen", "screen_name":"ScreenMarkListImage", "tablets":[1,2,3,4,5], "parameters": ["statement_3"]},
-    {"action":"sleep", "seconds":"60"}, *if-then: timeout, all-finished
-    {"action":"show_screen", "screen_name":"ScreenMarkListImage", "tablets":[1,2,3,4,5], "parameters": ["statement_4"]},
-    {"action":"run_behavior", "parameters":["activity2_05", "wait"]},
-    {"action":"sleep", "seconds":"60"}, *if-then: timeout, all-finished
-
-    {"action":"run_behavior", "parameters":["TU13", "wait"]},
-    {"action":"run_behavior", "parameters":["TUR01", "wait"]},
-    {"action":"run_behavior", "parameters":["TUR02", "wait"]},
-    {"action":"run_behavior", "parameters":["TUR03", "wait"]},
-    {"action": "start_timer","seconds": 120, "tablets":[1,2,3,4,5]},
-    {"action":"rest"},
-    {"action":"sleep", "seconds":"120"},
-    {"action":"wake_up"},
-
-    {"action":"run_behavior", "parameters":["TUR04", "wait"]},
-    {"action":"show_screen", "screen_name":"ScreenAudienceQuestionsGroup", "tablets":[3]},
-    {"action": "start_timer","seconds": 120, "tablets":[1,2,3,4,5]},
-    {"action":"rest"},
-    {"action":"sleep", "seconds":"120"},
-    {"action":"wake_up"},
-    {"action":"run_behavior", "parameters":["TUR05a", "wait"]},
-    {"action":"show_screen", "screen_name":"ScreenFinish", "tablets":[1,2,3,4,5]},
-    {"action":"run_behavior", "parameters":["F01", "wait"]},
-    {"action":"run_behavior", "parameters":["F02", "wait"]},
-    {"action":"rest"},
-    {"action":"say_text_to_speech", "parameters": ["yay, all done"]}*/
-  ],
-  "sequence": [
-    {"action":"wake_up"},
-    {"action":"show_screen", "screen_name":"ScreenHello", "tablets":[1,2,3,4,5]},
-    {"action":"run_behavior", "parameters":["TU01", "wait"]},
-    {"action":"run_behavior", "parameters":["TU02", "wait"]},
-    {"action":"run_behavior", "parameters":["TU05", "wait"]},
-    {"action":"run_behavior", "parameters":["TU06", "wait"]},
-    {"action":"show_screen", "screen_name":"ScreenAudience", "tablets":[1,2,3,4,5]},
-    {"action":"run_behavior", "parameters":["TU07", "wait"]},
-    {"action": "start_timer","seconds": 120, "tablets":[1,2,3,4,5]},
-    {"action":"rest"},
-    {"action":"sleep", "seconds":"54"},
-    {"action":"run_behavior", "parameters":["one_min_left", "wait"]},
-    {"action":"sleep", "seconds":"60"},
-    {"action":"wake_up"},
-    {"action":"run_behavior", "parameters":["TU10", "wait"]},
-
-    {"action":"show_screen", "screen_name":"ScreenAudienceGroup", "tablets":[1]},
-    {"action":"run_behavior", "parameters":["TU11", "wait"]},
-    {"action": "start_timer","seconds": 120, "tablets":[1,2,3,4,5]},
-    {"action":"rest"},
-    {"action":"sleep", "seconds":"120"},
-    {"action":"wake_up"},
-    {"action":"show_screen", "screen_name":"ScreenAudienceAgreeLeader", "tablets":[1]},
-    {"action":"show_screen", "screen_name":"ScreenAudienceAgree", "tablets":[2,3,4,5]},
-    {"action":"run_behavior", "parameters":["TU12", "wait"]},
-    {"action": "start_timer","seconds": 45, "tablets":[1,2,3,4,5]},
-    {"action":"sleep", "seconds":"45"},
-    {"action":"run_behavior", "parameters":["TU13", "wait"]},
-    {"action":"show_screen", "screen_name":"ScreenAudienceQuestions", "tablets":[1,2,3,4,5]},
-    {"action":"run_behavior", "parameters":["TUR01", "wait"]},
-    {"action":"run_behavior", "parameters":["TUR02", "wait"]},
-    {"action":"run_behavior", "parameters":["TUR03", "wait"]},
-    {"action": "start_timer","seconds": 120, "tablets":[1,2,3,4,5]},
-    {"action":"rest"},
-    {"action":"sleep", "seconds":"120"},
-    {"action":"wake_up"},
-
-    {"action":"run_behavior", "parameters":["TUR04", "wait"]},
-    {"action":"show_screen", "screen_name":"ScreenAudienceQuestionsGroup", "tablets":[3]},
-    {"action": "start_timer","seconds": 120, "tablets":[1,2,3,4,5]},
-    {"action":"rest"},
-    {"action":"sleep", "seconds":"120"},
-    {"action":"wake_up"},
-    {"action":"run_behavior", "parameters":["TUR05a", "wait"]},
-    {"action":"show_screen", "screen_name":"ScreenFinish", "tablets":[1,2,3,4,5]},
-    {"action":"run_behavior", "parameters":["F01", "wait"]},
-    {"action":"run_behavior", "parameters":["F02", "wait"]},
-    {"action":"rest"},
-    {"action":"say_text_to_speech", "parameters": ["yay, all done"]}
-  ]
+    }
+    ]
 }
