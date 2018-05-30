@@ -31,8 +31,14 @@ class ScreenCreateList (Screen):
         self.ids["text_input_4"].bind(text=self.ids["text_input_4"].on_text_change)
         self.ids["text_input_5"].bind(text=self.ids["text_input_5"].on_text_change)
 
-    def start_interaction(self):
-        print(self.ids)
+
+    def start_activity(self, activity):
+
+        if (activity=="activity1"):
+            self.ids["label_instructions"].text = ":םינוש דעי ילהק 5 ומשיר"
+        elif (activity=="activity5"):
+            self.ids["label_instructions"].text = ":םיקשממ יגוס 3 ומשיר"
+        self.ids['timer_time'].start_timer(int(120))
 
     def on_btn_done(self, **kwargs):
         print ("btn done screen create list pressed")

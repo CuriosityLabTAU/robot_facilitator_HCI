@@ -10,7 +10,7 @@ from kivy_communication import *
 from kivy.properties import ListProperty, ObjectProperty, BooleanProperty
 
 
-class ScreenMarkList (Screen):
+class ScreenMarkListImage (Screen):
     the_app = None
 
     def __init__(self, the_app):
