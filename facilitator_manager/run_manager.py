@@ -32,6 +32,8 @@ class ManagerNode():
     waiting_timer = False
     waiting_robot = False
 
+    session = 'session1'
+
     def __init__(self):
         print("init run_manager")
         self.robot_publisher = rospy.Publisher('to_nao', String, queue_size=10)
@@ -76,143 +78,182 @@ class ManagerNode():
         #action6 = {"action": "rest"}
         #self.run_robot_behavior(action6)
 
+    def run_generic_script(self):
+        print("run_study")
+        data_file = open("robotator_study.json")
+        logics_json = json.load(data_file)
+        # self.poses_conditions = logics_json['conditions']
+        self.study_sequence = logics_json['sequence'][self.session]
 
-def run_study_old(self):
-    # self.run_study_timer.cancel()
-    print("run_study")
-    data_file = open("robotator_study.json")
-    logics_json = json.load(data_file)
-    # self.poses_conditions = logics_json['conditions']
-    self.study_sequence = logics_json['sequence']
+        self.actions = {}
 
-    for action in self.study_sequence:
-        print ("@@@@@@@@@@@@@@@@@ study_sequence action=", action, "@@@@@@@@@@@@@@@@@")
+        for seq in self.study_sequence:
+            self.actions[seq['tag']] = seq
 
-        if action["action"] == "rest" or action["action"] == "wake_up":
-            print("if", action)
-            nao_message = action
-            self.run_robot_behavior(nao_message)
+        self.run_study_action(self.actions['start'])
 
-        if action["action"] == "run_behavior":
-            print("one_min_left", action["parameters"][0], self.is_audience_done)
-            if ("one_min_left" in action["parameters"][0]) and (self.is_audience_done == True):
-                print("one_min_left and audience_done")
-            elif ("TU10" in action["parameters"][0]):
-                if (self.is_audience_done == True):
-                    nao_message = {"action": "run_behavior",
-                                   "parameters": ["robot_facilitator-ad2c5c/robotator_behaviors/TU10a", "wait"]}
-                else:
-                    nao_message = {"action": "run_behavior",
-                                   "parameters": ["robot_facilitator-ad2c5c/robotator_behaviors/TU10b", "wait"]}
-                self.is_audience_done = False
-                self.run_robot_behavior(nao_message)
+    def run_study_action(self, action):
+        if action['target'] == 'tablet':
+            if "tablets" in action:
+                for tablet_id in action['tablets']:
+                    try:
+                        client_ip = self.tablets_ips[str(tablet_id)]
+                        message = action
+                        message['client_ip'] = client_ip
+                        self.tablet_publisher.publish(json.dumps(message))
+                    except:
+                        print('not enough tablets')
+            next_action = self.actions[action['next']]
+            self.run_study_action(next_action)
 
-            elif ("TU12" in action["parameters"][0]):
-                if (self.is_audience_done == True):
-                    nao_message = {"action": "run_behavior",
-                                   "parameters": ["robot_facilitator-ad2c5c/robotator_behaviors/TU12a", "wait"]}
-                else:
-                    nao_message = {"action": "run_behavior",
-                                   "parameters": ["robot_facilitator-ad2c5c/robotator_behaviors/TU12b", "wait"]}
-                self.is_audience_done = False
-                self.run_robot_behavior(nao_message)
+        elif action['target'] == 'robot':
+            if action["action"] in ["run_behavior", "play_audio_file"]:
+                nao_message = {"action": action['action'],
+                               "parameters": action['parameters']}
+                self.robot_end_signal[action['parameters'][0]] = False
+                self.robot_publisher.publish(json.dumps(nao_message))
+                while not self.robot_end_signal[action['parameters'][0]]:
+                    pass
+                next_action = self.actions[action['next']]
+                self.run_study_action(next_action)
 
+    def run_study_old(self):
+        # self.run_study_timer.cancel()
+        print("run_study")
+        data_file = open("robotator_study.json")
+        logics_json = json.load(data_file)
+        # self.poses_conditions = logics_json['conditions']
+        self.study_sequence = logics_json['sequence']
 
-            elif ("TU13" in action["parameters"][0]):
-                all_agree = True
-                for value in self.tablets_audience_agree.values():
-                    all_agree = all_agree and value
-                    print("all_agree?", all_agree)
+        for action in self.study_sequence:
+            print ("@@@@@@@@@@@@@@@@@ study_sequence action=", action, "@@@@@@@@@@@@@@@@@")
 
-                if not all_agree:
-                    nao_message = {"action": "run_behavior",
-                                   "parameters": ["robot_facilitator-ad2c5c/robotator_behaviors/TU13a", "wait"]}
-                    self.run_robot_behavior(nao_message)
-                    self.start_timer(60, [1, 2, 3, 4, 5])
-                    self.start_sleep(35)
-                    self.attention_tablet[tablet_id] = True
-                else:
-                    nao_message = {'action': 'run_behavior',
-                                   'parameters': ['robot_facilitator-ad2c5c/robotator_behaviors/TU13b', 'wait']}
-                    self.run_robot_behavior(nao_message)
-            else:
+            if action["action"] == "rest" or action["action"] == "wake_up":
                 print("if", action)
                 nao_message = action
                 self.run_robot_behavior(nao_message)
 
-        if action["action"] == "sleep":
-            print("the action is sleep", action["seconds"], self.is_audience_done)
-            if (self.is_audience_done == False):
-                self.start_sleep(float(action["seconds"]))
-                # float(action["seconds"])
-                # self.sleep_timer = Timer(float(action["seconds"]), self.timer_out)
-                # print("self.sleep_timer.start()")
-                # self.sleep_timer.start()
-                # self.waiting = True
-                # self.waiting_timer = True
-                # while self.waiting_timer:
-                #     pass
-                # print('done waiting_timer', action)
-                # nao_message = {'action': 'sound_tracker'}
-                # self.robot_publisher.publish(json.dumps(nao_message))
-                # time.sleep(float(action['seconds']))
+            if action["action"] == "run_behavior":
+                print("one_min_left", action["parameters"][0], self.is_audience_done)
+                if ("one_min_left" in action["parameters"][0]) and (self.is_audience_done == True):
+                    print("one_min_left and audience_done")
+                elif ("TU10" in action["parameters"][0]):
+                    if (self.is_audience_done == True):
+                        nao_message = {"action": "run_behavior",
+                                       "parameters": ["robot_facilitator-ad2c5c/robotator_behaviors/TU10a", "wait"]}
+                    else:
+                        nao_message = {"action": "run_behavior",
+                                       "parameters": ["robot_facilitator-ad2c5c/robotator_behaviors/TU10b", "wait"]}
+                    self.is_audience_done = False
+                    self.run_robot_behavior(nao_message)
 
-        if action['action'] == 'start_timer':
-            print("the action is start timer")
-            for tablet_id in action['tablets']:
-                try:
-                    client_ip = self.tablets_ips[str(tablet_id)]
-                    message = {'action': 'start_timer', 'client_ip': client_ip,
-                               'seconds': action['seconds']}
-                    self.tablet_publisher.publish(json.dumps(message))
-                except:
-                    print('not enough tablets')
+                elif ("TU12" in action["parameters"][0]):
+                    if (self.is_audience_done == True):
+                        nao_message = {"action": "run_behavior",
+                                       "parameters": ["robot_facilitator-ad2c5c/robotator_behaviors/TU12a", "wait"]}
+                    else:
+                        nao_message = {"action": "run_behavior",
+                                       "parameters": ["robot_facilitator-ad2c5c/robotator_behaviors/TU12b", "wait"]}
+                    self.is_audience_done = False
+                    self.run_robot_behavior(nao_message)
 
-        if action['action'] == 'sound_tracker':
-            self.robot_publisher.publish(json.dumps(action))
 
-        if action['action'] == 'say_text_to_speech':
-            self.robot_publisher.publish(json.dumps(action))
+                elif ("TU13" in action["parameters"][0]):
+                    all_agree = True
+                    for value in self.tablets_audience_agree.values():
+                        all_agree = all_agree and value
+                        print("all_agree?", all_agree)
 
-        if (action['action'] == 'show_screen'):
-            self.init_audience_done()
-            if "tablets" in action:
+                    if not all_agree:
+                        nao_message = {"action": "run_behavior",
+                                       "parameters": ["robot_facilitator-ad2c5c/robotator_behaviors/TU13a", "wait"]}
+                        self.run_robot_behavior(nao_message)
+                        self.start_timer(60, [1, 2, 3, 4, 5])
+                        self.start_sleep(35)
+                        self.attention_tablet[tablet_id] = True
+                    else:
+                        nao_message = {'action': 'run_behavior',
+                                       'parameters': ['robot_facilitator-ad2c5c/robotator_behaviors/TU13b', 'wait']}
+                        self.run_robot_behavior(nao_message)
+                else:
+                    print("if", action)
+                    nao_message = action
+                    self.run_robot_behavior(nao_message)
+
+            if action["action"] == "sleep":
+                print("the action is sleep", action["seconds"], self.is_audience_done)
+                if (self.is_audience_done == False):
+                    self.start_sleep(float(action["seconds"]))
+                    # float(action["seconds"])
+                    # self.sleep_timer = Timer(float(action["seconds"]), self.timer_out)
+                    # print("self.sleep_timer.start()")
+                    # self.sleep_timer.start()
+                    # self.waiting = True
+                    # self.waiting_timer = True
+                    # while self.waiting_timer:
+                    #     pass
+                    # print('done waiting_timer', action)
+                    # nao_message = {'action': 'sound_tracker'}
+                    # self.robot_publisher.publish(json.dumps(nao_message))
+                    # time.sleep(float(action['seconds']))
+
+            if action['action'] == 'start_timer':
+                print("the action is start timer")
                 for tablet_id in action['tablets']:
                     try:
                         client_ip = self.tablets_ips[str(tablet_id)]
-                        message = {'action': 'show_screen', 'client_ip': client_ip,
-                                   'screen_name': action['screen_name']}
+                        message = {'action': 'start_timer', 'client_ip': client_ip,
+                                   'seconds': action['seconds']}
                         self.tablet_publisher.publish(json.dumps(message))
                     except:
                         print('not enough tablets')
 
-        if (action['action'] == 'show_button'):
-            self.init_audience_done()
-            if "tablets" in action:
-                for tablet_id in action['tablets']:
-                    try:
-                        client_ip = self.tablets_ips[str(tablet_id)]
-                        message = {'action': 'show_button', 'client_ip': client_ip,
-                                   'button_id': action['button_id']}
-                        self.tablet_publisher.publish(json.dumps(message))
-                    except:
-                        print('not enough tablets')
-        if (action['action'] == 'disable_screen'):
-            self.init_audience_done()
-            if "tablets" in action:
-                for tablet_id in action['tablets']:
-                    try:
-                        client_ip = self.tablets_ips[str(tablet_id)]
-                        message = {'action': 'disable_screen', 'client_ip': client_ip}
-                        self.tablet_publisher.publish(json.dumps(message))
-                    except:
-                        print('not enough tablets')
+            if action['action'] == 'sound_tracker':
+                self.robot_publisher.publish(json.dumps(action))
+
+            if action['action'] == 'say_text_to_speech':
+                self.robot_publisher.publish(json.dumps(action))
+
+            if (action['action'] == 'show_screen'):
+                self.init_audience_done()
+                if "tablets" in action:
+                    for tablet_id in action['tablets']:
+                        try:
+                            client_ip = self.tablets_ips[str(tablet_id)]
+                            message = {'action': 'show_screen', 'client_ip': client_ip,
+                                       'screen_name': action['screen_name']}
+                            self.tablet_publisher.publish(json.dumps(message))
+                        except:
+                            print('not enough tablets')
+
+            if (action['action'] == 'show_button'):
+                self.init_audience_done()
+                if "tablets" in action:
+                    for tablet_id in action['tablets']:
+                        try:
+                            client_ip = self.tablets_ips[str(tablet_id)]
+                            message = {'action': 'show_button', 'client_ip': client_ip,
+                                       'button_id': action['button_id']}
+                            self.tablet_publisher.publish(json.dumps(message))
+                        except:
+                            print('not enough tablets')
+            if (action['action'] == 'disable_screen'):
+                self.init_audience_done()
+                if "tablets" in action:
+                    for tablet_id in action['tablets']:
+                        try:
+                            client_ip = self.tablets_ips[str(tablet_id)]
+                            message = {'action': 'disable_screen', 'client_ip': client_ip}
+                            self.tablet_publisher.publish(json.dumps(message))
+                        except:
+                            print('not enough tablets')
 
 
     def run_study_timer_out(self):
         print("run_study_timer_out")
         #self.run_study_timer.cancel()
-        self.run_study()
+        # self.run_study()
+        self.run_generic_script()
 
     def timer_out(self):
         print ("timer_out")
@@ -322,6 +363,8 @@ def run_study_old(self):
         if 'register tablet' not in data.data and 'sound_tracker' not in data.data:
             self.waiting = False
             self.waiting_robot = False
+
+            self.robot_end_signal[data.data] = True
             # message = data.data
             # rospy.loginfo(message)
             # self.tablet_publisher.publish(message)

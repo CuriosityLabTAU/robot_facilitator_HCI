@@ -1,20 +1,79 @@
 {
 
   "session1": [
-    {"action":"show_screen", "screen_name":"ScreenRobotIntroduction", "tablets":[1,2,3,4,5]},
-    {"action":"run_behavior", "parameters":["robot_introduction", "wait"]},
-    {"action": "play_audio_file", "parameters": ["robot_introduction"]},
+    {"tag": "start", "target": "tablet",
+      "action":"show_screen", "screen_name":"ScreenRobotIntroduction", "tablets":[1,2,3,4,5],
+      "next": "robot_introduction"
+    },
+    {"tag": "robot_introduction", "target": "robot",
+      "action":"run_behavior", "parameters":["robot_introduction", "wait"],
+      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+      "next": "robot_activity1_01"
+    },
 
-    {"action":"run_behavior", "parameters":["activity1_01", "wait"]},
-    {"action":"run_behavior", "parameters":["activity1_02", "wait"]},
-    {"action":"run_behavior", "parameters":["activity1_03", "wait"]},
+    {"tag": "robot_activity1_01", "target": "robot",
+      "action":"run_behavior", "parameters":["activity1_01", "wait"],
+      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+      "next": "robot_activity1_02"
+    },
+    {"tag": "robot_activity1_02", "target": "robot",
+      "action":"run_behavior", "parameters":["activity1_02", "wait"],
+      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+      "next": "tablet_show_audience_list_individual"
+    },
+    {"tag": "start", "target": "tablet",
+      "action":"show_screen", "screen_name":"ScreenCreateList", "tablets":[1,2,3,4,5],
+      "next": "robot_activity1_04"
+    },
+    {"tag": "robot_activity1_04", "target": "robot",
+      "action":"run_behavior", "parameters":["activity1_04", "wait"],
+      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+      "next": "robot_sleep_activity1_01"
+    },
+    {"tag": "robot_sleep_activity1_01", "target": "robot",
+      "action":"sleep", "seconds":"90",
+      "end": {"timeout": "robot_30sec_activity1_01", "all_finished": "robot_activity1_group_01"},
+      "next": "robot_sleep_activity1_01"
+    },
+    {"tag": "robot_30sec_activity1_01", "target": "robot",
+      "action":"play_audio_file", "parameters": ["30_seconds_left"],
+      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+      "next": "robot_sleep_activity1_02"
+    },
+    {"tag": "robot_sleep_activity1_02", "target": "robot",
+      "action":"sleep", "seconds":"30",
+      "end": {"timeout": "robot_activity1_group_01", "all_finished": "robot_activity1_group_01"},
+      "next": "robot_sleep_activity1_01"
+    },
+    {"tag": "robot_activity1_group_01", "target": "robot",
+      "action":"run_behavior", "parameters":["activity1_group_01", "wait"],
+      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+      "next": "tablet_show_audience_list_individual"
+    },
+    {"tag": "tablet_show_audience_list_group", "target": "tablet",
+      "action":"show_screen", "screen_name":"ScreenCreateList", "tablets":[2],
+      "next": "tablet_disable_audience_list_group"
+    },
+    {"tag": "tablet_disable_audience_list_group", "target": "tablet",
+      "action":"disable_screen", "tablets":[1,3,4,5],
+      "next": "robot_sleep_activity1_03"
+    },
 
-    {"action":"show_screen", "screen_name":"ScreenCreateList", "tablets":[1,2,3,4,5]},
-    {"action":"run_behavior", "parameters":["activity1_04", "wait"]},
-    {"action":"sleep", "seconds":"90"}, *if-then: timeout, all-finished
-    {"action": "play_audio_file", "parameters": ["30_seconds_left"]},
-    {"action":"sleep", "seconds":"30"}, *if-then: timeout, all-finished
+    {"tag": "robot_sleep_activity1_03", "target": "robot",
+      "action":"sleep", "seconds":"90",
+      "end": {"timeout": "robot_30sec_activity1_02", "all_finished": "robot_activity1_group_02"}
+    },
+    {"tag": "robot_30sec_activity1_02", "target": "robot",
+      "action":"play_audio_file", "parameters": ["30_seconds_left"],
+      /*"action": "play_audio_file", "parameters": ["robot_introduction"]*/
+      "next": "robot_sleep_activity1_04"
+    },
+    {"tag": "robot_sleep_activity1_04", "target": "robot",
+      "action":"sleep", "seconds":"30",
+      "end": {"timeout": "robot_activity1_group_02", "all_finished": "robot_activity1_group_02"}
+    }
 
+/*
     {"action":"run_behavior", "parameters":["activity1_group_01", "wait"]},
     {"action":"show_screen", "screen_name":"ScreenCreateList", "tablets":[2]}, ***
     {"action":"disable_screen", "tablets":[1,3,4,5]},
@@ -65,7 +124,7 @@
     {"action":"run_behavior", "parameters":["F01", "wait"]},
     {"action":"run_behavior", "parameters":["F02", "wait"]},
     {"action":"rest"},
-    {"action":"say_text_to_speech", "parameters": ["yay, all done"]}
+    {"action":"say_text_to_speech", "parameters": ["yay, all done"]}*/
   ],
   "sequence": [
     {"action":"wake_up"},
