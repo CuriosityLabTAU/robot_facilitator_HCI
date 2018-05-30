@@ -77,7 +77,7 @@ class RobotatorHCIApp(App):
         self.condition = 'robot'
 
 
-        #self.screen_manager.current_screen.start_activity("activity5")
+        #self.screen_manager.current_screen.start_activity()
 
         self.try_connection()
         return self.screen_manager
@@ -105,15 +105,21 @@ class RobotatorHCIApp(App):
         # self.screen_manager.current = 'Screen2'
 
     def on_connection(self):
-        KL.log.insert(action=LogAction.data, obj='DyslexiaApp', comment='start')
+        KL.log.insert(action=LogAction.data, obj='HCIApp', comment='start')
         print("the client status on_connection ", KC.client.status)
         if (KC.client.status == True):
             self.screen_manager.get_screen('ScreenRegister').ids['callback_label'].text = 'connected'
 
-    def select_condition(self,spinner_inst):
-        print("select_condition",spinner_inst.text)
-        self.condition = spinner_inst.text
-        KL.log.insert(action=LogAction.data, obj='select_condition', comment=str(spinner_inst.text))
+    def select_condition(self,toggle_inst):
+        print("select_condition",toggle_inst.text)
+        self.condition = toggle_inst.text
+        KL.log.insert(action=LogAction.data, obj='select_condition', comment=str(toggle_inst.text))
+
+
+    def select_session(self, toggle_inst):
+        print("select_session", toggle_inst.text)
+        self.session = toggle_inst.text
+        KL.log.insert(action=LogAction.data, obj='select_condition', comment=str(toggle_inst.text))
 
     def register_tablet(self):
         print("trying to register tablet. KC.client.status is ", KC.client.status)
@@ -127,7 +133,7 @@ class RobotatorHCIApp(App):
             print("register_tablet", message_str)
             KC.client.send_message(message_str)
         else:
-            self.screen_manager.current = 'ScreenDyslexia'
+            self.screen_manager.current = 'ScreenCreateList'
 
     def data_received(self, data):
         print ("robotator_app: data_received", data)

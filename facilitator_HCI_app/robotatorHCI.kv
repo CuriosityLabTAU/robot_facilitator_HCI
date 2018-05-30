@@ -75,15 +75,56 @@
             font_size: 16
             color: 1,1,1,1
 
-        LoggedSpinner:
-            id: world_spinner
-            text: 'condition'
-            font_size: 16
-            background_color: 0.2,0.2,0.2,1
-            values: ('robot','tablet')
+        LoggedToggleButton:
+            text: 'robot'
+            group: 'condition'
             size: root.width * 0.15, root.height * 0.05
             pos: root.width * 0.3, root.height * 0.5
-            on_text: app.select_condition(self)
+            on_press: app.select_condition(self)
+            allow_no_selection: False
+            state: 'down'
+
+        LoggedToggleButton:
+            text: 'tablet'
+            group: 'condition'
+            size: root.width * 0.15, root.height * 0.05
+            pos: root.width * 0.5, root.height * 0.5
+            on_press: app.select_condition(self)
+            allow_no_selection: False
+
+        Label:
+            pos: root.width * 0.1, root.height * 0.4
+            size: root.width * 0.2, root.height * 0.05
+            id: subject_id_label
+            text:"דומילה תדיחי"
+            font_name: 'fonts/the_font.ttf'
+            font_size: 16
+            color: 1,1,1,1
+
+        LoggedToggleButton:
+            text: 'session1'
+            group: 'session'
+            size: root.width * 0.15, root.height * 0.05
+            pos: root.width * 0.3, root.height * 0.4
+            on_press: app.select_session(self)
+            allow_no_selection: False
+            state: 'down'
+
+        LoggedToggleButton:
+            text: 'session2'
+            group: 'session'
+            size: root.width * 0.15, root.height * 0.05
+            pos: root.width * 0.5, root.height * 0.4
+            on_press: app.select_session(self)
+            allow_no_selection: False
+
+        LoggedToggleButton:
+            text: 'session3'
+            group: 'session'
+            size: root.width * 0.15, root.height * 0.05
+            pos: root.width * 0.7, root.height * 0.4
+            on_press: app.select_session(self)
+            allow_no_selection: False
 
         LoggedButton:
             id: tablet_id_btn
@@ -93,7 +134,7 @@
             text: 'register tablet'
             font_size: 16
             size: root.width * 0.15, root.height * 0.05
-            pos: root.width * 0.3, root.height * 0.3
+            pos: root.width * 0.3, root.height * 0.2
             on_press: app.register_tablet()
 
         Label:
