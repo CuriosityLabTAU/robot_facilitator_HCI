@@ -5,6 +5,7 @@ from std_msgs.msg import String
 import time
 from threading import Timer
 import threading
+import random
 
 class ManagerNode():
 
@@ -33,6 +34,7 @@ class ManagerNode():
     waiting_robot = False
 
     session = 'session1'
+    robot_end_signal = {}
 
     def __init__(self):
         print("init run_manager")
@@ -51,6 +53,8 @@ class ManagerNode():
             i += 1
 
         print(self.tablets_audience_agree)
+
+        self.robot_end_signal = {}
 
         rospy.spin() #spin() simply keeps python from exiting until this node is stopped
 
@@ -115,7 +119,27 @@ class ManagerNode():
                 while not self.robot_end_signal[action['parameters'][0]]:
                     pass
                 next_action = self.actions[action['next']]
-                self.run_study_action(next_action)
+                if next_action != 'end':
+                    self.run_study_action(next_action)
+                else:
+                    self.the_end()
+            elif action["action"] in ["sleep"]:
+                print("start_timer")
+                # either go on timeout
+                self.sleep_timer = Timer(action["seconds"], self.run_study_action, [action["end"]["timeout"]])
+                self.sleep_timer.start()
+
+                # or go on something else
+                for k, v in action["end"].items():
+                    self.robot_end_signal[k] = v
+
+                if 'done' in action["end"].keys(): # get all done
+                    self.tablets_done = {}
+                elif 'agree' in action["end"].keys(): # get all agree or not all agree
+                    self.tablets_agree = {}
+                elif 'same' in action["end"].keys(): # get if all same or not
+                    self.tablets_mark = {}
+                    self.tablets_continue = {}
 
     def run_study_old(self):
         # self.run_study_timer.cancel()
@@ -396,6 +420,86 @@ class ManagerNode():
         log = json.loads(data.data)
         print(log)
 
+        if 'btn_done' in log['obj'] and log['action'] == 'press':
+            client_ip = log['client_ip']
+            tablet_id = self.tablets_ids[client_ip]
+            subject_id = self.tablets_subjects_ids[tablet_id]
+            self.count_done = 0
+            self.tablets_done[tablet_id] = True
+            for value in self.tablets_done.values():
+                if value == True:
+                    self.count_done += 1
+            if (self.count_done == self.number_of_tablets):
+                try:
+                    self.sleep_timer.cancel()
+                    print("self.sleep_timer.cancel()")
+                except:
+                    print("failed self.sleep_timer_cancel")
+                self.count_done = 0
+                self.run_study_action(self.actions[self.robot_end_signal['done']])
+
+        if 'btn_agree' in log['obj'] and log['action'] == 'press':
+            client_ip = log['client_ip']
+            tablet_id = self.tablets_ids[client_ip]
+            subject_id = self.tablets_subjects_ids[tablet_id]
+            self.tablets_agree[tablet_id] = True
+            self.count_responded = len(self.tablets_agree.keys())
+            if (self.count_responded == self.number_of_tablets):
+                try:
+                    self.sleep_timer.cancel()
+                    print("self.sleep_timer.cancel()")
+                except:
+                    print("failed self.sleep_timer_cancel")
+                self.count_responded = 0
+
+                count_agree = 0
+                for v in self.tablets_agree.values():
+                    if v:
+                        count_agree += 1
+                if count_agree == self.number_of_tablets:
+                    self.run_study_action(self.actions[self.robot_end_signal['all_agree']])
+                else:
+                    self.run_study_action(self.actions[self.robot_end_signal['not_all_agree']])
+
+        if 'btn_continue' in log['obj'] and log['action'] == 'press':
+            client_ip = log['client_ip']
+            tablet_id = self.tablets_ids[client_ip]
+            subject_id = self.tablets_subjects_ids[tablet_id]
+
+            if tablet_id not in self.tablets_mark:
+                self.tablets_mark[tablet_id] = []
+            self.tablets_mark[tablet_id] = log['comment'] # TODO: parse the comment
+
+            self.count_done = 0
+            self.tablets_continue[tablet_id] = True
+            for value in self.tablets_done.values():
+                if value == True:
+                    self.count_done += 1
+            if (self.count_done == self.number_of_tablets):
+                try:
+                    self.sleep_timer.cancel()
+                    print("self.sleep_timer.cancel()")
+                except:
+                    print("failed self.sleep_timer_cancel")
+                self.count_done = 0
+
+                # check if same, find two that are not
+                tablet_pairs = []
+                for t_id_1 in self.tablets_mark.keys():
+                    for t_id_2 in self.tablets_mark.keys():
+                        if t_id_1 != t_id_2:
+                            if len(set(self.tablets_mark[t_id_1]).symmetric_difference(
+                                    set(self.tablets_mark[t_id_2])
+                            )) > 0: # there is some difference
+                                tablet_pairs.append([t_id_1, t_id_2])
+                if len(tablet_pairs) == 0: # they are all the same
+                    self.run_study_action(self.actions[self.robot_end_signal['all_same']])
+                else:
+                    the_pair = random.choice(tablet_pairs)
+                    self.actions[self.robot_end_signal['not_all_same']]["lookat"] = the_pair
+                    self.run_study_action(self.actions[self.robot_end_signal['not_all_same']])
+
+
         if 'audience_done' in log['obj'] and log['action'] == 'press':
             client_ip = log['client_ip']
             tablet_id = self.tablets_ids[client_ip]
@@ -440,10 +544,11 @@ class ManagerNode():
                 self.waiting = False
                 self.waiting_timer = False
 
-
         if self.listen_to_text:
             self.text_audience_group[log['obj']] = log['comment']
 
+    def the_end(self):
+        print('THE END')
 
 if __name__ == '__main__':
     try:
