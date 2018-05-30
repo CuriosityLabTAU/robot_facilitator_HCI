@@ -10,6 +10,7 @@ from screen_register import *
 from screen_create_list import *
 from screen_scale_image import *
 from screen_mark_list_image import *
+from screen_robot_introduction import *
 from kivy.clock import *
 
 
@@ -63,17 +64,19 @@ class RobotatorHCIApp(App):
         screen_mark_list_image = ScreenMarkListImage(self)
         screen_create_list = ScreenCreateList(self)
         screen_scale_image = ScreenScaleImage(self)
+        screen_robot_introduction = ScreenRobotIntroduction(self)
         self.screen_manager.add_widget(screen_register)
         self.screen_manager.add_widget(screen_create_list)
         self.screen_manager.add_widget(screen_mark_list_image)
         self.screen_manager.add_widget(screen_scale_image)
-
+        self.screen_manager.add_widget(screen_robot_introduction)
 
         #self.screen_manager.current = 'ScreenCreateList'  #'ScreenRegister'
 
         #self.screen_manager.current = 'ScreenMarkListImage'
         #self.screen_manager.current = 'ScreenScaleImage'
-        self.screen_manager.current = 'ScreenRegister'
+        #self.screen_manager.current = 'ScreenRegister'
+        self.screen_manager.current = 'ScreenRobotIntroduction'
         self.condition = 'robot'
 
 
@@ -115,11 +118,10 @@ class RobotatorHCIApp(App):
         self.condition = toggle_inst.text
         KL.log.insert(action=LogAction.data, obj='select_condition', comment=str(toggle_inst.text))
 
-
     def select_session(self, toggle_inst):
         print("select_session", toggle_inst.text)
         self.session = toggle_inst.text
-        KL.log.insert(action=LogAction.data, obj='select_condition', comment=str(toggle_inst.text))
+        KL.log.insert(action=LogAction.data, obj='select_session', comment=str(toggle_inst.text))
 
     def register_tablet(self):
         print("trying to register tablet. KC.client.status is ", KC.client.status)

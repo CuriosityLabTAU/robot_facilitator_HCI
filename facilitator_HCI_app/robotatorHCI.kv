@@ -144,6 +144,23 @@
             text:"callback"
             font_size: 16
             color: 1,1,1,1
+<ScreenRobotIntroduction>
+    name: 'ScreenRobotIntroduction'
+    Widget:
+        orientation: 'vertical'
+        padding: ['20dp','20dp','20dp','20dp']
+        spacing: '20dp'
+        canvas.before:
+            Color:
+                rgba: 0.2,0.3,0.4,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    LabelRobotator:
+        text: '!םיאבה םיכורב'
+        font_size: '24sp'
+        halign: 'center'
+        pos_hint: {'center_x':0.5,'center_y':0.45}
 
 <ScreenScaleImage>:
     name: 'ScreenScaleImage'
@@ -190,7 +207,7 @@
             name: "text_input_5"
         ButtonRobotator:
             id: btn_done
-            name: 'audience_done'
+            name: 'btn_done'
             text: 'יתמייס'
 
 

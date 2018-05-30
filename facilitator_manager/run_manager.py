@@ -34,6 +34,7 @@ class ManagerNode():
 
     session = 'session1'
 
+
     def __init__(self):
         print("init run_manager")
         self.robot_publisher = rospy.Publisher('to_nao', String, queue_size=10)
