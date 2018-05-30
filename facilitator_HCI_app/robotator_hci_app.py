@@ -176,7 +176,7 @@ class RobotatorHCIApp(App):
             if data['action'] == 'set_widget_text':
                 self.screen_manager.current_screen.ids[data['widget_id']].text = data['text']
 
-            if data['action'] == 'show_button':
+            if data['action'] == 'show_buttons':
                 #self.screen_manager.current_screen.show_button(data['button_id'])
                 self.screen_manager.current.show_buttons()
 
