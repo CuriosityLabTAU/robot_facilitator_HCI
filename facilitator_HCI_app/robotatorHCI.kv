@@ -28,7 +28,7 @@
             id: tablet_id
             name: "tablet_id"
             font_size: 16
-            text:"0"
+            text:""
             pos: root.width * 0.3, root.height * 0.6
             size: root.width * 0.2, root.height * 0.05
 
@@ -45,7 +45,7 @@
             id: group_id
             name: "group_id"
             font_size: 16
-            text:"0"
+            text:""
             pos: root.width * 0.3, root.height * 0.7
             size: root.width * 0.2, root.height * 0.05
 
@@ -62,7 +62,7 @@
             id: subject_id
             name: "subject_id"
             font_size: 16
-            text:"0"
+            text:""
             pos: root.width * 0.3, root.height * 0.8
             size: root.width * 0.2, root.height * 0.05
 
@@ -205,11 +205,26 @@
         TextInputRobotator:
             id: text_input_5
             name: "text_input_5"
-        ButtonRobotator:
-            id: btn_done
-            name: 'btn_done'
-            text: 'יתמייס'
 
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 150
+            ButtonRobotator:
+                id: btn_done
+                name: 'btn_done'
+                text: 'יתמייס'
+            ButtonRobotator:
+                id: btn_disagree
+                name: 'btn_disagree'
+                text: 'םיכסמ אל'
+                opacity: 0
+                disabled:True
+            ButtonRobotator:
+                id: btn_agree
+                name: 'btn_agree'
+                opacity:0
+                text: 'םיכסמ'
+                disabled: True
 
 <ScreenMarkListImage>:
     name: 'ScreenMarkListImage'

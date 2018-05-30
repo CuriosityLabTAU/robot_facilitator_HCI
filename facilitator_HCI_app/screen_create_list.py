@@ -30,13 +30,13 @@ class ScreenCreateList (Screen):
         self.ids["text_input_3"].bind(text=self.ids["text_input_3"].on_text_change)
         self.ids["text_input_4"].bind(text=self.ids["text_input_4"].on_text_change)
         self.ids["text_input_5"].bind(text=self.ids["text_input_5"].on_text_change)
-
+        self.start_activity()
 
     def start_activity(self):
         session = self.the_app.session
-        if (session ==1):
+        if (session =='session1'):
             activity = "activity1"
-        elif (session == 3):
+        elif (session == 'session3'):
             activity = "activity5"
         if (activity=="activity1"):
             self.ids["label_instructions"].text = ":םינוש דעי ילהק 5 ומשיר"
@@ -44,6 +44,14 @@ class ScreenCreateList (Screen):
             self.ids["label_instructions"].text = ":םיקשממ יגוס 3 ומשיר"
         self.ids['timer_time'].start_timer(int(120))
 
+    def show_buttons(self):
+        self.ids['btn_agree'].opacity = 1
+        self.ids['btn_disagree'].opacity = 1
+        self.ids['btn_done'].opacity = 0
+        self.ids['btn_agree'].disabled = False
+        self.ids['btn_disagree'].disabled = False
+        self.ids['btn_done'].disabled = True
+    
     def on_btn_done(self, **kwargs):
         print ("btn done screen create list pressed")
 

@@ -59,6 +59,8 @@ class RobotatorHCIApp(App):
         Builder.load_file("robotatorHCI.kv")
         self.basic_server_ip = '192.168.0.10'
         self.server_ip_end = 0
+        self.condition = 'robot'
+        self.session = 'session1'
         self.screen_manager = MyScreenManager()
         screen_register = ScreenRegister(self)
         screen_mark_list_image = ScreenMarkListImage(self)
@@ -71,13 +73,12 @@ class RobotatorHCIApp(App):
         self.screen_manager.add_widget(screen_scale_image)
         self.screen_manager.add_widget(screen_robot_introduction)
 
-        #self.screen_manager.current = 'ScreenCreateList'  #'ScreenRegister'
+        self.screen_manager.current = 'ScreenCreateList'  #'ScreenRegister'
 
         #self.screen_manager.current = 'ScreenMarkListImage'
         #self.screen_manager.current = 'ScreenScaleImage'
         #self.screen_manager.current = 'ScreenRegister'
-        self.screen_manager.current = 'ScreenRobotIntroduction'
-        self.condition = 'robot'
+        #self.screen_manager.current = 'ScreenRobotIntroduction'
 
 
         #self.screen_manager.current_screen.start_activity()
@@ -188,6 +189,9 @@ class RobotatorHCIApp(App):
     def on_btn_done(self,**kwargs):
         print ("btn done screen create list pressed")
         self.screen_manager.get_screen('ScreenCreateList').on_btn_done()
+
+    def show_buttons(self,**kwargs):
+        self.screen_manager.get_screen('ScreenCreateList').show_buttons()
 
     # ==========================================================================
     # Interaction in ScreenDyslexia
