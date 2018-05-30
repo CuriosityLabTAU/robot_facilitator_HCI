@@ -155,8 +155,66 @@
 
 <ScreenMarkListImage>:
     name: 'ScreenMarkListImage'
-    Label:
-        text: "ScreenMarkList"
+    Widget:
+        orientation: 'vertical'
+        padding: ['20dp','20dp','20dp','20dp']
+        spacing: '20dp'
+        canvas.before:
+            Color:
+                rgba: 0.2,0.3,0.4,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        LabelRobotator:
+            width: root.width*0.9
+            text_size: self.width, self.height
+            pos: self.width * 0.05, root.height*0.9
+            size_hint: None,None
+            id: label_instructions
+            text: ":הרישי הייחנהל םימיאתמש םיביכרמה תא ונמס"
+
+        FloatLayout:
+            size_hint: None, None
+            pos_hint: None, None
+            size: root.width*0.9, root.height*0.8
+            pos: root.width*0.05, root.height*0.1
+            Image:
+                id: screenshot
+                size: self.parent.size
+                size_hint: None,None
+                pos: self.parent.pos
+                halign: 'center'
+                source: 'images/activity5.png'
+                opacity: 1
+                allow_stretch: True
+                keep_ratio: False
+            CheckBoxRobotator:
+                id: checkbox_1
+                pos: self.parent.x + self.parent.width * 0.817, self.parent.y + self.parent.height * 0.476
+            CheckBoxRobotator:
+                id: checkbox_2
+                pos: self.parent.x + self.parent.width * 0.835, self.parent.y + self.parent.height * 0.368
+            CheckBoxRobotator:
+                id: checkbox_3
+                pos: self.parent.x + self.parent.width * 0.588, self.parent.y + self.parent.height * 0.341
+            CheckBoxRobotator:
+                id: checkbox_4
+                pos: self.parent.x + self.parent.width * 0.401, self.parent.y + self.parent.height * 0.365
+            CheckBoxRobotator:
+                id: checkbox_5
+                pos: self.parent.x + self.parent.width * 0.656, self.parent.y + self.parent.height * 0.620
+            CheckBoxRobotator:
+                id: checkbox_6
+                pos: self.parent.x + self.parent.width * 0.528, self.parent.y + self.parent.height * 0.842
+            CheckBoxRobotator:
+                id: checkbox_7
+                pos: self.parent.x + self.parent.width * 0.832, self.parent.y + self.parent.height * 0.909
+            CheckBoxRobotator:
+                id: checkbox_8
+                pos: self.parent.x + self.parent.width * 0.184, self.parent.y + self.parent.height * 0.428
+
+
 
 <ScreenDyslexia>:
     name: 'ScreenDyslexia'

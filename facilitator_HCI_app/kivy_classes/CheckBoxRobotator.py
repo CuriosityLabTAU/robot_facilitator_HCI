@@ -8,10 +8,11 @@ from kivy_communication import logged_widgets
 
 Builder.load_string("""
 <CheckBoxRobotator>:
-  bcolor: 235/255.0, 234/255.0,236/255.0, 1
+  bcolor: 1, 1, 0, 1
   color: 0, 0, 0, 1
-  size_hint_y: None
-  height: '40dp'
+  size_hint: None,None
+  height: '25dp'
+  width: '25dp'
   font_size: '18sp'
   font_name: 'fonts/the_font.ttf'
   canvas.before:
@@ -22,6 +23,6 @@ Builder.load_string("""
       size: self.size
 """)
 class CheckBoxRobotator(logged_widgets.LoggedCheckBox):
-  bcolor = ListProperty([1, 1, 1 ,1])
+  bcolor = ListProperty([1, 1, 0 ,1])
 
 Factory.register('KivyB', module='CheckBoxRobotator')

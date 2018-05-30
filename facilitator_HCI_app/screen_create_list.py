@@ -32,8 +32,12 @@ class ScreenCreateList (Screen):
         self.ids["text_input_5"].bind(text=self.ids["text_input_5"].on_text_change)
 
 
-    def start_activity(self, activity):
-
+    def start_activity(self):
+        session = self.the_app.session
+        if (session ==1):
+            activity = "activity1"
+        elif (session == 3):
+            activity = "activity5"
         if (activity=="activity1"):
             self.ids["label_instructions"].text = ":םינוש דעי ילהק 5 ומשיר"
         elif (activity=="activity5"):

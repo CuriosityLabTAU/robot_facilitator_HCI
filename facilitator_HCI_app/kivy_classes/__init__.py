@@ -4,6 +4,6 @@ from SpinnerRobotator import *
 from SpinnerOptionRobotator import *
 from GridLayerRobotator import *
 from ToggleButtonRobotator import *
-from CheckboxRobotator import *
+from CheckBoxRobotator import *
 from ButtonRobotator import *
 from TextInputRobotator import *
