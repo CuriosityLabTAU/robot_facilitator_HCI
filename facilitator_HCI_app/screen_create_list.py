@@ -52,9 +52,12 @@ class ScreenCreateList (Screen):
         self.ids['btn_disagree'].disabled = False
         self.ids['btn_done'].disabled = True
     
+    def disable_tablet(self):
+        for id_i in self.ids:
+            self.ids[id_i].disabled = True
+
     def on_btn_done(self, **kwargs):
         print ("btn done screen create list pressed")
-
 
     def data_received(self, data):
         print ("ScreenCreateList: data_received", data)

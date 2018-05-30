@@ -177,7 +177,8 @@ class RobotatorHCIApp(App):
                 self.screen_manager.current_screen.ids[data['widget_id']].text = data['text']
 
             if data['action'] == 'show_button':
-                self.screen_manager.current_screen.show_button(data['button_id'])
+                #self.screen_manager.current_screen.show_button(data['button_id'])
+                self.screen_manager.current.show_buttons()
 
             if data['action'] == 'disable_screen':
                 self.screen_manager.current_screen.disable_screen()
@@ -190,8 +191,6 @@ class RobotatorHCIApp(App):
         print ("btn done screen create list pressed")
         self.screen_manager.get_screen('ScreenCreateList').on_btn_done()
 
-    def show_buttons(self,**kwargs):
-        self.screen_manager.get_screen('ScreenCreateList').show_buttons()
 
     # ==========================================================================
     # Interaction in ScreenDyslexia
