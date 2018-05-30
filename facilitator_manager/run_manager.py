@@ -37,7 +37,7 @@ class ManagerNode():
     robot_end_signal = {}
     tablets_done = {}
     tablets_agree = {}
-    tablets_mark = []
+    tablets_mark = {}
     tablets_continue = {}
 
 
@@ -62,7 +62,7 @@ class ManagerNode():
         self.robot_end_signal = {}
         self.tablets_done = {}
         self.tablets_agree = {}
-        self.tablets_mark = []
+        self.tablets_mark = {}
         self.tablets_continue = {}
 
         rospy.spin() #spin() simply keeps python from exiting until this node is stopped
@@ -131,8 +131,8 @@ class ManagerNode():
                 self.robot_publisher.publish(json.dumps(nao_message))
                 while not self.robot_end_signal[action['parameters'][0]]:
                     pass
-                next_action = self.actions[action['next']]
-                if next_action != 'end':
+                if action['next'] != 'end':
+                    next_action = self.actions[action['next']]
                     self.run_study_action(next_action)
                 else:
                     self.the_end()

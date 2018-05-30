@@ -73,11 +73,11 @@ class RobotatorHCIApp(App):
         self.screen_manager.add_widget(screen_scale_image)
         self.screen_manager.add_widget(screen_robot_introduction)
 
-        self.screen_manager.current = 'ScreenCreateList'  #'ScreenRegister'
+        # self.screen_manager.current = 'ScreenCreateList'  #'ScreenRegister'
 
-        #self.screen_manager.current = 'ScreenMarkListImage'
+        # self.screen_manager.current = 'ScreenMarkListImage'
         #self.screen_manager.current = 'ScreenScaleImage'
-        #self.screen_manager.current = 'ScreenRegister'
+        self.screen_manager.current = 'ScreenRegister'
         #self.screen_manager.current = 'ScreenRobotIntroduction'
 
 
@@ -167,6 +167,9 @@ class RobotatorHCIApp(App):
                 print(data)
                 self.screen_manager.current = data['screen_name']
 
+                if 'parameters' in data:
+                    self.screen_manager.current_screen.update_parameters(data['parameters'])
+
                 if 'role' in data:
                     self.screen_manager.current_screen.update_role_bias(role=data['role'], bias=int(data['bias']))
 
@@ -176,9 +179,9 @@ class RobotatorHCIApp(App):
             if data['action'] == 'set_widget_text':
                 self.screen_manager.current_screen.ids[data['widget_id']].text = data['text']
 
-            if data['action'] == 'show_button':
+            if data['action'] == 'show_buttons':
                 #self.screen_manager.current_screen.show_button(data['button_id'])
-                self.screen_manager.current.show_buttons()
+                self.screen_manager.current_screen.show_buttons()
 
             if data['action'] == 'disable_screen':
                 self.screen_manager.current_screen.disable_screen()
@@ -189,7 +192,7 @@ class RobotatorHCIApp(App):
 
     def on_btn_done(self,**kwargs):
         print ("btn done screen create list pressed")
-        self.screen_manager.get_screen('ScreenCreateList').on_btn_done()
+        self.screen_manager.current_screen.on_btn_done()
 
 
     # ==========================================================================
