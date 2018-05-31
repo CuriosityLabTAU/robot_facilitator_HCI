@@ -7,13 +7,11 @@
     },
     {"tag": "robot_introduction", "target": "robot",
       "action":"run_behavior", "parameters":["robot_introduction", "wait"],
-
       "next": "robot_activity1_01"
     },
 
     {"tag": "robot_activity1_01", "target": "robot",
       "action":"run_behavior", "parameters":["activity1_01", "wait"],
-
       "next": "robot_activity1_02"
     },
     {"tag": "robot_activity1_02", "target": "robot",
@@ -22,7 +20,7 @@
       "next": "tablet_show_audience_list_individual"
     },
     {"tag": "tablet_show_audience_list_individual", "target": "tablet",
-      "action":"show_screen", "screen_name":"ScreenCreateList", "tablets":[1,2,3,4,5],
+      "action":"show_screen", "screen_name":"ScreenCreateList", "activity": ["activity1"], "activity_type": ["individual"], "tablets":[1,2,3,4,5],
       "next": "robot_activity1_04"
     },
     {"tag": "robot_activity1_04", "target": "robot",
@@ -31,7 +29,7 @@
       "next": "robot_sleep_activity1_01"
     },
     {"tag": "robot_sleep_activity1_01", "target": "robot",
-      "action":"sleep", "seconds":"5",
+      "action":"sleep", "seconds":"90",
       "end": {"timeout": "robot_30sec_activity1_01", "done": "robot_activity1_group_01"},
       "next": "robot_sleep_activity1_01"
     },
@@ -42,7 +40,7 @@
     },
     {"tag": "robot_sleep_activity1_02", "target": "robot",
       "action":"sleep", "seconds":"30",
-      "end": {"timeout": "robot_activity1_group_01", "all_finished": "robot_activity1_group_01"},
+      "end": {"timeout": "robot_activity1_group_01", "done": "robot_activity1_group_01"},
       "next": "robot_sleep_activity1_01"
     },
 
@@ -52,7 +50,7 @@
       "next": "tablet_show_audience_list_group"
     },
     {"tag": "tablet_show_audience_list_group", "target": "tablet",
-      "action":"show_screen", "screen_name":"ScreenCreateList", "tablets":[1],
+      "action":"show_screen", "screen_name":"ScreenCreateList", "activity": ["activity1"], "activity_type": ["group"], "tablets":[1],
       "next": "tablet_disable_audience_list_group"
     },
     {"tag": "tablet_disable_audience_list_group", "target": "tablet",
@@ -79,7 +77,7 @@
       "next": "tablet_show_agree_buttons"
     },
     {"tag": "tablet_show_agree_buttons", "target": "tablet",
-      "action":"show_buttons", "button_ids": ["btn_agree", "btn_disagree"], "tablets":[1,2,3,4,5],
+      "action":"show_buttons", "which": ["agree_disagree"], "tablets":[1,2,3,4,5],
       "next": "robot_sleep_activity1_05"
     },
     {"tag": "robot_sleep_activity1_05", "target": "robot",
@@ -109,7 +107,7 @@
       "next": "tablet_show_question_mark_list_image_1"
     },
     {"tag": "tablet_show_question_mark_list_image_1", "target": "tablet",
-      "action":"show_screen", "screen_name":"ScreenMarkListImage", "parameters": ["statement_1"], "tablets":[1,2,3,4,5],
+      "action":"show_screen", "screen_name":"ScreenMarkListImage", "activity":["activity2"], "activity_type": ["statement_1"], "tablets":[1,2,3,4,5],
       "next": "robot_activity2_03"
     },
     {"tag": "robot_activity2_03", "target": "robot",
@@ -147,7 +145,7 @@
       "next": "tablet_show_question_mark_list_image_2"
     },
     {"tag": "tablet_show_question_mark_list_image_2", "target": "tablet",
-      "action":"show_screen", "screen_name":"ScreenMarkListImage", "parameters": ["statement_2"], "tablets":[1,2,3,4,5],
+      "action":"show_screen", "screen_name":"ScreenMarkListImage", "activity":["activity2"], "activity_type": ["statement_2"], "tablets":[1,2,3,4,5],
       "next": "robot_activity2_08"
     },
     {"tag": "robot_activity2_08", "target": "robot",

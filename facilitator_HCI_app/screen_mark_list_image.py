@@ -21,6 +21,7 @@ class ScreenMarkListImage (Screen):
         #self.ids["subject_id"].bind(text=self.ids["subject_id"].on_text_change)
 
     def on_enter(self, *args):
+        #init the check boxes if marked previously
         for ids in self.ids:
             if 'check' in ids:
                 self.ids[ids].active = False
@@ -42,7 +43,7 @@ class ScreenMarkListImage (Screen):
                     mark_list.append(ids)
         KL.log.insert(action=LogAction.press, obj='btn_continue', comment=str(mark_list))
 
-    def update_parameters(self, parameters):
+    def show_screen(self, parameters):
         for ids in self.ids:
             if 'check' in ids:
                 self.ids[ids].active = False

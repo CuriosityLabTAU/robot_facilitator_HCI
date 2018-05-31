@@ -59,6 +59,7 @@ class RobotatorHCIApp(App):
         Builder.load_file("robotatorHCI.kv")
         self.basic_server_ip = '192.168.0.10'
         self.server_ip_end = 0
+        self.tablet_id = 0
         self.condition = 'robot'
         self.session = 'session1'
         self.screen_manager = MyScreenManager()
@@ -126,10 +127,10 @@ class RobotatorHCIApp(App):
 
     def register_tablet(self):
         print("trying to register tablet. KC.client.status is ", KC.client.status)
-        tablet_id = self.screen_manager.current_screen.ids['tablet_id'].text
+        self.tablet_id = self.screen_manager.current_screen.ids['tablet_id'].text
         group_id = self.screen_manager.current_screen.ids['group_id'].text
         message = {'tablet_to_manager': {'action': 'register_tablet',
-                                         'parameters': {'group_id': group_id, 'tablet_id': tablet_id}}}
+                                         'parameters': {'group_id': group_id, 'tablet_id': self.tablet_id}}}
         #if KC.client.status == True:
         if self.condition == 'robot':
             message_str = str(json.dumps(message))
@@ -166,9 +167,10 @@ class RobotatorHCIApp(App):
             if (data['action'] == 'show_screen'):
                 print(data)
                 self.screen_manager.current = data['screen_name']
+                self.screen_manager.current_screen.show_screen(data['activity'],data['activity_type'])
 
-                if 'parameters' in data:
-                    self.screen_manager.current_screen.update_parameters(data['parameters'])
+                #if 'parameters' in data:
+                #    self.screen_manager.current_screen.show_screen(data['parameters'])
 
                 if 'role' in data:
                     self.screen_manager.current_screen.update_role_bias(role=data['role'], bias=int(data['bias']))
@@ -180,8 +182,8 @@ class RobotatorHCIApp(App):
                 self.screen_manager.current_screen.ids[data['widget_id']].text = data['text']
 
             if data['action'] == 'show_buttons':
-                #self.screen_manager.current_screen.show_button(data['button_id'])
-                self.screen_manager.current_screen.show_buttons()
+                self.screen_manager.current_screen.show_button(data['which'])
+                #self.screen_manager.current_screen.show_buttons()
 
             if data['action'] == 'disable_screen':
                 self.screen_manager.current_screen.disable_screen()

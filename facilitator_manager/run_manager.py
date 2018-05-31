@@ -259,7 +259,10 @@ class ManagerNode():
                         try:
                             client_ip = self.tablets_ips[str(tablet_id)]
                             message = {'action': 'show_screen', 'client_ip': client_ip,
-                                       'screen_name': action['screen_name']}
+                                       'screen_name': action['screen_name'],
+                                       'activity': action['activity'],
+                                       'activity_type':action['activity_type']
+                                       }
                             self.tablet_publisher.publish(json.dumps(message))
                         except:
                             print('not enough tablets')
@@ -271,7 +274,7 @@ class ManagerNode():
                         try:
                             client_ip = self.tablets_ips[str(tablet_id)]
                             message = {'action': 'show_button', 'client_ip': client_ip,
-                                       'button_id': action['button_id']}
+                                       'which': action['which']}
                             self.tablet_publisher.publish(json.dumps(message))
                         except:
                             print('not enough tablets')
@@ -457,7 +460,7 @@ class ManagerNode():
                 self.count_done = 0
                 self.run_study_action(self.actions[self.robot_end_signal['done']])
 
-        if 'btn_agree' in log['obj'] and log['action'] == 'press':
+        if 'agree' in log['obj'] and log['action'] == 'press':
             client_ip = log['client_ip']
             tablet_id = self.tablets_ids[client_ip]
             subject_id = self.tablets_subjects_ids[tablet_id]
