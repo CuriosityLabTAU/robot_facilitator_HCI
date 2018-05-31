@@ -37,18 +37,23 @@ class ScreenCreateList (Screen):
 
     def start_activity(self, activity, activity_type):
         print("screen_create_list: start_activity", activity)
-        if (activity=="activity1"):
-            print("in")
-            self.ids["label_instructions"].text = ":םינוש דעי ילהק 3 ומשיר"
-        elif (activity=="activity3"):
-            self.ids["label_instructions"].text = ":תורופאטמ יגוס 3 ומשיר"
-        elif (activity=="activity5"):
-            self.ids["label_instructions"].text = ":םיקשממ יגוס 3 ומשיר"
+        if (activity_type=='group'):
+            self.ids['label_instructions'].text = '2 רפסמ טלבאט לע תיתצובק המישר וניכה'
+
+        elif (activity_type=='individual'):
+            if (activity=="activity1"):
+                print("in")
+                self.ids["label_instructions"].text = ":םינוש דעי ילהק 3 ומשיר"
+            elif (activity=="activity3"):
+                self.ids["label_instructions"].text = ":תורופאטמ יגוס 3 ומשיר"
+            elif (activity=="activity5"):
+                self.ids["label_instructions"].text = ":םיקשממ יגוס 3 ומשיר"
         self.show_buttons('continue')
         self.ids['timer_time'].start_timer(int(120))
 
 
     def show_buttons(self, which):
+        #call from manager
         #which = agree_disagree / continue
         if (which =='agree_disagree'):
             self.ids['btn_agree'].opacity = 1
@@ -70,6 +75,7 @@ class ScreenCreateList (Screen):
             self.ids[id_i].disabled = True
 
     def on_btn_done(self, **kwargs):
+        # called when the user clicks
         print ("btn done screen create list pressed")
         if (self.the_app.condition == 'Robot'):   #todo: on tablet condition think what to do here...
             text = '2 רפסמ טלבאט לע תיתצובק המישר וניכה ונייסי םלוכש וקח'
@@ -93,7 +99,7 @@ class ScreenCreateList (Screen):
 
         if activity_type == "group":
             # RINAT
-            self.ids['label_instructions'].text = '2 רפסמ טלבאט לע תיתצובק המישר וניכה'
+
 
             if (self.the_app.tablet_id == '2'):
                 self.ids['text_input_4'].opacity = True
