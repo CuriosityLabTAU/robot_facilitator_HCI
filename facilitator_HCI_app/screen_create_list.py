@@ -70,7 +70,7 @@ class ScreenCreateList (Screen):
 
     def on_btn_done(self, **kwargs):
         print ("btn done screen create list pressed")
-        if (self.the_app.condition == 'Robot'):   #todo: on tablet condition think what to do here
+        if (self.the_app.condition == 'Robot'):   #todo: on tablet condition think what to do here...
             text = '2 רפסמ טלבאט לע תיתצובק המישר וניכה ונייסי םלוכש וקח'
             self.ids['label_instructions'].text = text
             print("tablet_id",self.the_app.tablet_id)
