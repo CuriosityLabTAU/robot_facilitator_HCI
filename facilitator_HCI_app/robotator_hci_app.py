@@ -44,7 +44,7 @@ class TimerLabel(Label):
     def advance(self, dt):
         min, sec = divmod(self.time, 60)
         str_time = "%d:%02d ראשנ ןמז " % (min, sec)
-        print("self.time", self.time, str_time)
+        #print("self.time", self.time, str_time)
         self.text = str_time
         if self.time <= 0:
             Clock.unschedule(self.event)

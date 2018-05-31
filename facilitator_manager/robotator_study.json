@@ -2,7 +2,7 @@
   "session1": [
     {
       "tag": "start", "target": "tablet",
-      "action":"show_screen", "screen_name":"ScreenRobotIntroduction", "tablets":[1,2,3,4,5],
+      "action":"show_screen", "screen_name":"ScreenRobotIntroduction", "activity":"none", "activity_type":"none", "tablets":[1,2,3,4,5],
       "next": "robot_introduction"
     },
     {"tag": "robot_introduction", "target": "robot",
@@ -24,7 +24,7 @@
       "next": "tablet_show_audience_list_individual"
     },
     {"tag": "tablet_show_audience_list_individual", "target": "tablet",
-      "action":"show_screen", "screen_name":"ScreenCreateList", "activity": ["activity1"], "activity_type": ["individual"], "tablets":[1,2,3,4,5],
+      "action":"show_screen", "screen_name":"ScreenCreateList", "activity": "activity1", "activity_type": "individual", "tablets":[1,2,3,4,5],
       "next": "robot_activity1_04"
     },
     {"tag": "robot_activity1_04", "target": "robot",
@@ -54,7 +54,7 @@
       "next": "tablet_show_audience_list_group"
     },
     {"tag": "tablet_show_audience_list_group", "target": "tablet",
-      "action":"show_screen", "screen_name":"ScreenCreateList", "activity": ["activity1"], "activity_type": ["group"], "tablets":[1],
+      "action":"show_screen", "screen_name":"ScreenCreateList", "activity": "activity1", "activity_type": "group", "tablets":[1],
       "next": "tablet_disable_audience_list_group"
     },
     {"tag": "tablet_disable_audience_list_group", "target": "tablet",
@@ -111,7 +111,7 @@
       "next": "tablet_show_question_mark_list_image_1"
     },
     {"tag": "tablet_show_question_mark_list_image_1", "target": "tablet",
-      "action":"show_screen", "screen_name":"ScreenMarkListImage", "activity":["activity2"], "activity_type": ["statement_1"], "tablets":[1,2,3,4,5],
+      "action":"show_screen", "screen_name":"ScreenMarkListImage", "activity":"activity2", "activity_type":"statement_1", "tablets":[1,2,3,4,5],
       "next": "robot_activity2_03"
     },
     {"tag": "robot_activity2_03", "target": "robot",
@@ -147,7 +147,7 @@
       "next": "tablet_show_question_mark_list_image_2"
     },
     {"tag": "tablet_show_question_mark_list_image_2", "target": "tablet",
-      "action":"show_screen", "screen_name":"ScreenMarkListImage", "activity":["activity2"], "activity_type": ["statement_2"], "tablets":[1,2,3,4,5],
+      "action":"show_screen", "screen_name":"ScreenMarkListImage", "activity":"activity2", "activity_type": "statement_2", "tablets":[1,2,3,4,5],
       "next": "robot_activity2_08"
     },
     {"tag": "robot_activity2_08", "target": "robot",

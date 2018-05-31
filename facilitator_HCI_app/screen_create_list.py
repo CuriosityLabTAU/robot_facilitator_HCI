@@ -36,8 +36,9 @@ class ScreenCreateList (Screen):
     #    self.start_activity()
 
     def start_activity(self, activity, activity_type):
-        session = self.the_app.session
+        print("screen_create_list: start_activity", activity)
         if (activity=="activity1"):
+            print("in")
             self.ids["label_instructions"].text = ":םינוש דעי ילהק 3 ומשיר"
         elif (activity=="activity3"):
             self.ids["label_instructions"].text = ":תורופאטמ יגוס 3 ומשיר"
@@ -87,7 +88,7 @@ class ScreenCreateList (Screen):
         #self.ids['callback_label'].text = data
 
     def show_screen(self, activity, activity_type):
-
+        print ("screen_create_list: show_screen ", activity, activity_type)
         self.start_activity(activity,activity_type)
 
         if activity_type == "group":
@@ -98,18 +99,6 @@ class ScreenCreateList (Screen):
                 self.ids['text_input_4'].opacity = True
                 self.ids['text_input_5'].opacity = True
 
-            if activity == "activity1":
-                pass
-            elif activity == "activity3":
-                self.ids['label_instructions'].text ='2 רפסמ טלבאט לע תיתצובק המישר וניכה'
-            elif activity == "activity5":
-                pass
-
         elif activity_type == "individual":
-            if activity == "activity1":
-                self.ids['label_instructions'].text = ":הרישי הייחנהל םימיאתמש םיביכרמה תא ונמס"
-            elif activity == "activity3":
-                self.ids['label_instructions'].text = ":הרישי הייחנהל םימיאתמש םיביכרמה תא ונמס"
-            elif activity == "activity5":
-                self.ids['label_instructions'].text = ":הרישי הייחנהל םימיאתמש םיביכרמה תא ונמס"
-
+            self.ids['text_input_4'].opacity = False
+            self.ids['text_input_5'].opacity = False

@@ -10,27 +10,27 @@
   <language>en_US</language>
  </descriptionLanguages>
  <contents>
-  <behaviorContent path="1_4">
+  <behaviorContent path="address_pair_1_4">
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <behaviorContent path="1_2">
+  <behaviorContent path="address_pair_1_2">
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <behaviorContent path="1_3">
+  <behaviorContent path="address_pair_1_3">
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <behaviorContent path="2_3">
+  <behaviorContent path="address_pair_2_3">
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <behaviorContent path="2_4">
+  <behaviorContent path="address_pair_2_4">
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <behaviorContent path="3_4">
+  <behaviorContent path="address_pair_3_4">
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
