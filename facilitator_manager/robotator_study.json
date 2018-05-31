@@ -16,6 +16,10 @@
     },
     {"tag": "robot_activity1_02", "target": "robot",
       "action":"run_behavior", "parameters":["activity1_02", "wait"],
+      "next": "robot_activity1_03"
+    },
+    {"tag": "robot_activity1_03", "target": "robot",
+      "action":"run_behavior", "parameters":["activity1_03", "wait"],
 
       "next": "tablet_show_audience_list_individual"
     },
