@@ -305,6 +305,7 @@ class ManagerNode():
 
 
     def run_robot_behavior(self, nao_message):
+        print("run_manager: run_robot_behavior")
         self.robot_publisher.publish(json.dumps(nao_message))
         self.waiting = True
         self.waiting_robot = True
