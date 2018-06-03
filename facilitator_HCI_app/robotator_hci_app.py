@@ -178,7 +178,7 @@ class RobotatorHCIApp(App):
 
             if data['action'] == 'show_buttons':
                 #self.screen_manager.current_screen.show_button(data['button_id'])
-                self.screen_manager.current.show_buttons()
+                self.screen_manager.current_screen.show_buttons()
 
             if data['action'] == 'disable_screen':
                 self.screen_manager.current_screen.disable_screen()
