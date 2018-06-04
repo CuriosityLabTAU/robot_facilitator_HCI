@@ -76,9 +76,9 @@ class RobotatorHCIApp(App):
 
         # self.screen_manager.current = 'ScreenCreateList'  #'ScreenRegister'
 
-        # self.screen_manager.current = 'ScreenMarkListImage'
-        #self.screen_manager.current = 'ScreenScaleImage'
-        self.screen_manager.current = 'ScreenRegister'
+        #self.screen_manager.current = 'ScreenMarkListImage'
+        self.screen_manager.current = 'ScreenScaleImage'
+        #self.screen_manager.current = 'ScreenRegister'
         #self.screen_manager.current = 'ScreenRobotIntroduction'
 
 
