@@ -154,6 +154,22 @@ class ManagerNode():
                 elif 'same' in action["end"].keys(): # get if all same or not
                     self.tablets_mark = {}
                     self.tablets_continue = {}
+            elif action['action'] == 'run_behavior_with_lookat':
+                the_pair = action['lookat'] # pair of tablet ids
+                # Rinat: convert tablet ids to positions (1,2,3,4)
+                the_action = 'address_pair_%d_%d' % (int(the_pair[0]), int(the_pair[1]))
+                nao_message = {"action": the_action,
+                               "parameters": action['parameters']}
+
+                self.robot_end_signal[action['parameters'][0]] = False
+                self.robot_publisher.publish(json.dumps(nao_message))
+                while not self.robot_end_signal[action['parameters'][0]]:
+                    pass
+                if action['next'] != 'end':
+                    next_action = self.actions[action['next']]
+                    self.run_study_action(next_action)
+                else:
+                    self.the_end()
 
     def run_study_old(self):
         # self.run_study_timer.cancel()
@@ -305,7 +321,6 @@ class ManagerNode():
 
 
     def run_robot_behavior(self, nao_message):
-        print("run_manager: run_robot_behavior")
         self.robot_publisher.publish(json.dumps(nao_message))
         self.waiting = True
         self.waiting_robot = True
