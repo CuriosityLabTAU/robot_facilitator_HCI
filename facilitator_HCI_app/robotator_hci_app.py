@@ -80,9 +80,10 @@ class RobotatorHCIApp(App):
         #self.screen_manager.current = 'ScreenMarkListImage'
         #self.screen_manager.current_screen.show_screen('activity2', 'statement_1')
 
-        # self.screen_manager.current = 'ScreenScaleImage'
+        self.screen_manager.current = 'ScreenScaleImage'
+        self.screen_manager.current_screen.show_screen('activity6', 'statement_1')
 
-        self.screen_manager.current = 'ScreenRegister'
+        #self.screen_manager.current = 'ScreenRegister'
         #self.screen_manager.current = 'ScreenRobotIntroduction'
 
 
@@ -166,7 +167,7 @@ class RobotatorHCIApp(App):
                     the_msg = the_msg + '}'
                 json_msg = json.loads(the_msg)
                 json_data.append(json_msg)
-                # print("data_received err", sys.exc_info())
+                # print("data_received err", sys.exc_info()) v
 
         for data in json_data:
             print("data['action']", data['action'])
