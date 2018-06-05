@@ -157,11 +157,26 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
+    Image:
+        id: intro_image
+        size: root.width * 0.6, root.height * 0.6
+        size_hint: None,None
+        pos: root.width * 0.2, root.height* 0.1
+        halign: 'center'
+        source: 'images/introduction.png'
+        opacity: 1
+        allow_stretch: True
+        keep_ratio: False
+
     LabelRobotator:
         text: '!םיאבה םיכורב'
         font_size: '24sp'
+        width: root.width
+        size_hint: None, None
+        #size: root.width * 0.8, root.height * 0.4
         halign: 'center'
-        pos_hint: {'center_x':0.5,'center_y':0.45}
+        pos_hint: {'center_x':0.5,'center_y':0.9}
+
 
 <ScreenScaleImage>:
     name: 'ScreenScaleImage'
@@ -178,14 +193,25 @@
                 pos: self.pos
                 size: self.size
 
+        TimerLabel:
+            background_color: 1,0,0,1
+            id: timer_time
+            text:"timer"
+            pos:root.width * 0.02, root.height * 0.95
+            width: root.width * 0.5
+            pos_hint:None,None
+            font_name: "fonts/the_font.ttf"
+            font_size: '20sp'
+            text_size: self.size
+            halign: 'left'
+            color: 1,1,1,1
 
         GridLayout:
-            pos: root.width * 0.02, root.height * 0.9
+            pos: root.width * 0.02, root.height * 0.87
             size: root.width * 0.96 , '25dp'
             pos_hint: None,None
             size_hint: None,None
             cols: 6
-
 
             LabelRobotator:
                 size: '25dp','25dp'

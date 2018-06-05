@@ -54,3 +54,4 @@ class ScreenScaleImage (Screen):
         self.activity = activity
         self.current_statement = int(activity_type[10:])
         self.ids['label_instructions'].text = self.activity6_statements[activity_type]
+        self.ids['timer_time'].start_timer(int(120))
