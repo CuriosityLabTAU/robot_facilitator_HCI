@@ -12,7 +12,7 @@ robot_path = '/home/nao/naoqi/sounds/HCI/'
 
 class ManagerNode():
 
-    number_of_tablets = 1
+    number_of_tablets = 2
     tablets = {}    #in the form of {tablet_id_1:{"subject_id":subject_id, "tablet_ip";tablet_ip}
                                     #,tablet_id_2:{"subject_id":subject_id, "tablet_ip";tablet_ip}
 
@@ -170,21 +170,35 @@ class ManagerNode():
                     self.tablets_continue = {}
             elif action['action'] == 'run_behavior_with_lookat':
                 the_pair = action['lookat'] # pair of tablet ids
+                the_pair = sorted([int(i) for i in the_pair])
                 # Rinat: convert tablet ids to positions (1,2,3,4)
-                the_action = 'address_pair_%d_%d' % (int(the_pair[0]), int(the_pair[1]))
-                print("@@@@@@@@@@@@@@@@@@the_action", the_action)
-                nao_message = {"action": the_action,
-                               "parameters": action['parameters']}
-                self.robot_end_signal = {}
-                self.robot_end_signal[action['parameters'][0]] = False
+
+                the_action = 'facilitator-6ea3b8/' + 'address_pair_%d_%d' % (int(the_pair[0]), int(the_pair[1]))
+                nao_message = {"action": 'run_behavior',
+                               "parameters": [the_action]}
                 self.robot_publisher.publish(json.dumps(nao_message))
-                while not self.robot_end_signal[action['parameters'][0]]:
+
+                the_action = robot_path + 'general_not_same.wav'
+                nao_message = {"action": 'play_audio_file',
+                               "parameters": [the_action]}
+                self.robot_publisher.publish(json.dumps(nao_message))
+
+                self.robot_end_signal = {}
+                self.robot_end_signal[the_action] = False
+                while not self.robot_end_signal[the_action]:
                     pass
                 if action['next'] != 'end':
                     next_action = self.actions[action['next']]
                     self.run_study_action(next_action)
                 else:
                     self.the_end()
+            elif "wake_up" in action["action"]:
+                local_action = {"action": "wake_up"}
+                self.run_robot_behavior(local_action)
+                local_action = {'action': 'set_autonomous_state', 'parameters': ['solitary']}
+                self.run_robot_behavior(local_action)
+                next_action = self.actions[action['next']]
+                self.run_study_action(next_action)
 
     def run_study_old(self):
         # self.run_study_timer.cancel()
