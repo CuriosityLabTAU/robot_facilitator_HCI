@@ -3,7 +3,7 @@
     {
       "tag": "start", "target": "tablet",
       "action":"show_screen", "screen_name":"ScreenRobotIntroduction", "activity":"none", "activity_type":"none", "tablets":[1,2,3,4,5],
-      "next": "robot_activity1_03", "debug": "robot_introduction"
+      "next": "robot_activity2_01", "debug": "robot_introduction"
     },
     {"tag": "robot_introduction", "target": "robot",
       "action":"play_audio_file", "parameters":["robot_introduction"],
