@@ -13,49 +13,76 @@ from kivy.properties import ListProperty, ObjectProperty, BooleanProperty
 class ScreenCreateList (Screen):
     the_app = None
 
+    activity_statements = {"activity1":  ":םינוש דעי ילהק 3 ומשיר",
+                            "activity3": ":תורופאטמ יגוס 3 ומשיר",
+                            "activity5": ":םיקשממ יגוס 3 ומשיר"}
     def __init__(self, the_app):
         self.the_app = the_app
         super(Screen, self).__init__()
 
         # this bind is from the HebrewManager, to change the text order as it is printed
-        self.ids["text_input_1"].bind(text=HebrewManagement.text_change)
-        self.ids["text_input_2"].bind(text=HebrewManagement.text_change)
-        self.ids["text_input_3"].bind(text=HebrewManagement.text_change)
-        self.ids["text_input_4"].bind(text=HebrewManagement.text_change)
-        self.ids["text_input_5"].bind(text=HebrewManagement.text_change)
+        self.ids['text_input_1'].bind(text=HebrewManagement.text_change)
+        self.ids['text_input_2'].bind(text=HebrewManagement.text_change)
+        self.ids['text_input_3'].bind(text=HebrewManagement.text_change)
+        self.ids['text_input_4'].bind(text=HebrewManagement.text_change)
+        self.ids['text_input_5'].bind(text=HebrewManagement.text_change)
 
         # this bind is from the kivy_logger.py in order to log the text
-        self.ids["text_input_1"].bind(text=self.ids["text_input_1"].on_text_change)
-        self.ids["text_input_2"].bind(text=self.ids["text_input_2"].on_text_change)
-        self.ids["text_input_3"].bind(text=self.ids["text_input_3"].on_text_change)
-        self.ids["text_input_4"].bind(text=self.ids["text_input_4"].on_text_change)
-        self.ids["text_input_5"].bind(text=self.ids["text_input_5"].on_text_change)
+        self.ids['text_input_1'].bind(text=self.ids['text_input_1'].on_text_change)
+        self.ids['text_input_2'].bind(text=self.ids['text_input_2'].on_text_change)
+        self.ids['text_input_3'].bind(text=self.ids['text_input_3'].on_text_change)
+        self.ids['text_input_4'].bind(text=self.ids['text_input_4'].on_text_change)
+        self.ids['text_input_5'].bind(text=self.ids['text_input_5'].on_text_change)
+
+    def on_enter(self, *args):
+        pass
 
 
-    #def on_enter(self, *args):
-    #    self.start_activity()
+    def disable_tablet(self):
+        for id_i in self.ids:
+            self.ids[id_i].disabled = True
 
-    def start_activity(self, activity, activity_type):
+    def on_btn_done(self, **kwargs):
+        # called when the user clicks
+        print ("screen_create_list: on_btn_done")
+        if (self.the_app.condition == 'tablet'):   #todo: on tablet condition think what to do here...
+            text = '2 רפסמ טלבאט לע תיתצובק המישר וניכהו ומייסי םלוכש וכח'
+            self.ids['label_instructions'].text = text
+            print("tablet_id",self.the_app.tablet_id)
+            if (self.the_app.tablet_id != '2'):
+                self.disable_tablet()
+
+
+    def data_received(self, data):
+        print ("ScreenCreateList: data_received", data)
+        # self.the_app.screen_manager.current = 'ScreenAudience'
+        print("end")
+        #self.ids['callback_label'].text = data
+
+    def show_screen(self, activity, activity_type):
+        print ("screen_create_list: show_screen ", activity, activity_type)
+        self.update_label(activity,activity_type)
+        if activity_type == "group":
+            if (self.the_app.tablet_id == '2'):
+                self.ids['text_input_4'].opacity = 1
+                self.ids['text_input_5'].opacity = 1
+        elif activity_type == "individual":
+            self.ids['text_input_4'].opacity = 0
+            self.ids['text_input_5'].opacity = 0
+
+    def update_label(self, activity, activity_type):
         print("screen_create_list: start_activity", activity)
-        if (activity_type=='group'):
+        if (activity_type == 'group'):
             self.ids['label_instructions'].text = '2 רפסמ טלבאט לע תיתצובק המישר וניכה'
-
-        elif (activity_type=='individual'):
-            if (activity=="activity1"):
-                print("in")
-                self.ids["label_instructions"].text = ":םינוש דעי ילהק 3 ומשיר"
-            elif (activity=="activity3"):
-                self.ids["label_instructions"].text = ":תורופאטמ יגוס 3 ומשיר"
-            elif (activity=="activity5"):
-                self.ids["label_instructions"].text = ":םיקשממ יגוס 3 ומשיר"
+        elif (activity_type == 'individual'):
+            self.ids['label_instructions'].text = self.activity_statements[activity]
         self.show_buttons('continue')
         self.ids['timer_time'].start_timer(int(120))
 
-
     def show_buttons(self, which):
-        #call from manager
-        #which = agree_disagree / continue
-        if (which =='agree_disagree'):
+        # call from manager
+        # which = agree_disagree / continue
+        if (which == 'agree_disagree'):
             self.ids['btn_agree'].opacity = 1
             self.ids['btn_disagree'].opacity = 1
             self.ids['btn_done'].opacity = 0
@@ -69,42 +96,3 @@ class ScreenCreateList (Screen):
             self.ids['btn_agree'].disabled = True
             self.ids['btn_disagree'].disabled = True
             self.ids['btn_done'].disabled = False
-
-    def disable_tablet(self):
-        for id_i in self.ids:
-            self.ids[id_i].disabled = True
-
-    def on_btn_done(self, **kwargs):
-        # called when the user clicks
-        print ("btn done screen create list pressed")
-        if (self.the_app.condition == 'Robot'):   #todo: on tablet condition think what to do here...
-            text = '2 רפסמ טלבאט לע תיתצובק המישר וניכה ונייסי םלוכש וקח'
-            self.ids['label_instructions'].text = text
-            print("tablet_id",self.the_app.tablet_id)
-            if (self.the_app.tablet_id != '2'):
-                self.disable_tablet()
-
-    def reverse_text(self,text):
-        return str((str(text)[::-1]))
-
-    def data_received(self, data):
-        print ("ScreenCreateList: data_received", data)
-        # self.the_app.screen_manager.current = 'ScreenAudience'
-        print("end")
-        #self.ids['callback_label'].text = data
-
-    def show_screen(self, activity, activity_type):
-        print ("screen_create_list: show_screen ", activity, activity_type)
-        self.start_activity(activity,activity_type)
-
-        if activity_type == "group":
-            # RINAT
-
-
-            if (self.the_app.tablet_id == '2'):
-                self.ids['text_input_4'].opacity = True
-                self.ids['text_input_5'].opacity = True
-
-        elif activity_type == "individual":
-            self.ids['text_input_4'].opacity = False
-            self.ids['text_input_5'].opacity = False

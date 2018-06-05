@@ -60,7 +60,7 @@ class RobotatorHCIApp(App):
         self.basic_server_ip = '192.168.0.10'
         self.server_ip_end = 0
         self.tablet_id = 0
-        self.condition = 'robot'
+        self.condition = 'tablet'
         self.session = 'session1'
         self.screen_manager = MyScreenManager()
         screen_register = ScreenRegister(self)
@@ -74,13 +74,15 @@ class RobotatorHCIApp(App):
         self.screen_manager.add_widget(screen_scale_image)
         self.screen_manager.add_widget(screen_robot_introduction)
 
-        # self.screen_manager.current = 'ScreenCreateList'  #'ScreenRegister'
+        #self.screen_manager.current = 'ScreenCreateList'  #'ScreenRegister'
+        #self.screen_manager.current_screen.show_screen('activity1', 'individual')
 
-        self.screen_manager.current = 'ScreenMarkListImage'
-        #self.screen_manager.current = 'ScreenScaleImage'
-        self.screen_manager.current_screen.show_screen('activity2', 'statement_1')
+        #self.screen_manager.current = 'ScreenMarkListImage'
+        #self.screen_manager.current_screen.show_screen('activity2', 'statement_1')
 
-        #self.screen_manager.current = 'ScreenRegister'
+        # self.screen_manager.current = 'ScreenScaleImage'
+
+        self.screen_manager.current = 'ScreenRegister'
         #self.screen_manager.current = 'ScreenRobotIntroduction'
 
 
@@ -138,8 +140,14 @@ class RobotatorHCIApp(App):
             message_str = str(json.dumps(message))
             print("register_tablet", message_str)
             KC.client.send_message(message_str)
-        else:
+        elif self.condition =='tablet':
             self.screen_manager.current = 'ScreenCreateList'
+            if (self.session == 'session1'):
+                self.screen_manager.current_screen.show_screen('activity1', 'individual')
+            elif (self.session =='session2'):
+                self.screen_manager.current_screen.show_screen('activity3', 'individual')
+            elif (self.session =='session3'):
+                self.screen_manager.current_screen.show_screen('activity5', 'individual')
 
     def data_received(self, data):
         print ("robotator_app: data_received", data)

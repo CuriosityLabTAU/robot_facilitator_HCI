@@ -16,7 +16,6 @@ Builder.load_string("""
   font_name: 'fonts/the_font.ttf'
   background_color: 0.5,0.5,0.5,1
   background_normal: ''
-  on_press: app.on_btn_done()
 """)
 
 class ButtonRobotator(logged_widgets.LoggedButton):

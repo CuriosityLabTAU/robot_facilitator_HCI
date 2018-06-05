@@ -82,7 +82,7 @@
             pos: root.width * 0.3, root.height * 0.5
             on_press: app.select_condition(self)
             allow_no_selection: False
-            state: 'down'
+
 
         LoggedToggleButton:
             text: 'tablet'
@@ -91,6 +91,7 @@
             pos: root.width * 0.5, root.height * 0.5
             on_press: app.select_condition(self)
             allow_no_selection: False
+            state: 'down'
 
         Label:
             pos: root.width * 0.1, root.height * 0.4
@@ -259,6 +260,7 @@
             pos: root.width*0.02, root.height*0.02
             name: 'btn_continue'
             text: 'ךשמה'
+            on_press: app.on_btn_done()
 
 
 <ScreenCreateList>:
@@ -285,6 +287,8 @@
         LabelRobotator:
             id: label_instructions
             text: "להק ומשיר"
+            size_hint: 1,1
+
         TextInputRobotator:
             id: text_input_1
             name: "text_input_1"
@@ -312,6 +316,7 @@
                 id: btn_done
                 name: 'btn_done'
                 text: 'יתמייס'
+                on_press: app.on_btn_done()
             ButtonRobotator:
                 id: btn_disagree
                 name: 'btn_disagree'
@@ -337,6 +342,18 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
+
+        TimerLabel:
+            id: timer_time
+            text:"timer"
+            pos:root.width * 0.05, root.height * 0.9
+            width: root.width * 0.5
+            pos_hint:None,None
+            font_name: "fonts/the_font.ttf"
+            font_size: '20sp'
+            text_size: self.size
+            halign: 'left'
+            color: 1,1,1,1
 
         LabelRobotator:
             width: root.width*0.9
