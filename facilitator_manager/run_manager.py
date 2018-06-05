@@ -9,7 +9,7 @@ import random
 
 class ManagerNode():
 
-    number_of_tablets = 1
+    number_of_tablets =1
     tablets = {}    #in the form of {tablet_id_1:{"subject_id":subject_id, "tablet_ip";tablet_ip}
                                     #,tablet_id_2:{"subject_id":subject_id, "tablet_ip";tablet_ip}
 
@@ -154,6 +154,23 @@ class ManagerNode():
                 elif 'same' in action["end"].keys(): # get if all same or not
                     self.tablets_mark = {}
                     self.tablets_continue = {}
+            elif action['action'] == 'run_behavior_with_lookat':
+                the_pair = action['lookat'] # pair of tablet ids
+                # Rinat: convert tablet ids to positions (1,2,3,4)
+                the_action = 'address_pair_%d_%d' % (int(the_pair[0]), int(the_pair[1]))
+                print("@@@@@@@@@@@@@@@@@@the_action", the_action)
+                nao_message = {"action": the_action,
+                               "parameters": action['parameters']}
+
+                self.robot_end_signal[action['parameters'][0]] = False
+                self.robot_publisher.publish(json.dumps(nao_message))
+                while not self.robot_end_signal[action['parameters'][0]]:
+                    pass
+                if action['next'] != 'end':
+                    next_action = self.actions[action['next']]
+                    self.run_study_action(next_action)
+                else:
+                    self.the_end()
 
     def run_study_old(self):
         # self.run_study_timer.cancel()
@@ -490,6 +507,7 @@ class ManagerNode():
 
             if tablet_id not in self.tablets_mark:
                 self.tablets_mark[tablet_id] = []
+            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ log[comment]",log['comment'])
             self.tablets_mark[tablet_id] = log['comment'] # TODO: parse the comment
 
             self.count_done = 0

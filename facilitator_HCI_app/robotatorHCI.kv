@@ -166,6 +166,101 @@
     name: 'ScreenScaleImage'
     Label:
         text: "ScreenScaleImage"
+    Widget:
+        orientation: 'vertical'
+        padding: ['20dp','20dp','20dp','20dp']
+        spacing: '20dp'
+        canvas.before:
+            Color:
+                rgba: 0.2,0.3,0.4,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+
+        GridLayout:
+            pos: root.width * 0.02, root.height * 0.9
+            size: root.width * 0.96 , '25dp'
+            pos_hint: None,None
+            size_hint: None,None
+            cols: 6
+
+
+            LabelRobotator:
+                size: '25dp','25dp'
+                halign: 'center'
+                text: "1"
+            LabelRobotator:
+                size: '25dp','25dp'
+                halign: 'center'
+                text: "2"
+            LabelRobotator:
+                size: '25dp','25dp'
+                halign: 'center'
+                text: "3"
+            LabelRobotator:
+                size: '25dp','25dp'
+                halign: 'center'
+                text: "4"
+            LabelRobotator:
+                size: '25dp','25dp'
+                halign: 'center'
+                text: "5"
+            LabelRobotator:
+                height: '25dp'
+                size_hint: 1,1
+                id: label_statement
+                text: ""
+            CheckBoxRobotator:
+                id: checkbox_1
+                group: 'scale_image'
+                #pos: self.parent.x + self.parent.width * 0.817, self.parent.y + self.parent.height * 0.9
+            CheckBoxRobotator:
+                id: checkbox_2
+                group: 'scale_image'
+                #pos: self.parent.x + self.parent.width * 0.835, self.parent.y + self.parent.height * 0.9
+            CheckBoxRobotator:
+                id: checkbox_3
+                group: 'scale_image'
+                #pos: self.parent.x + self.parent.width * 0.588, self.parent.y + self.parent.height * 0.9
+            CheckBoxRobotator:
+                id: checkbox_4
+                group: 'scale_image'
+                #pos: self.parent.x + self.parent.width * 0.401, self.parent.y + self.parent.height * 0.9
+            CheckBoxRobotator:
+                id: checkbox_5
+                group: 'scale_image'
+                #pos: self.parent.x + self.parent.width * 0.656, self.parent.y + self.parent.height * 0.9
+            LabelRobotator:
+                height: '25dp'
+                id: label_statement
+                size_hint: 1,1
+                text: ":שמחל תחא ןיב 'תכרעמה בצמ לש תוארנ' הקיטסירויה תא וגרד"
+
+
+        FloatLayout:
+            size_hint: None, None
+            pos_hint: None, None
+            size: root.width*0.96, root.height*0.8
+            pos: root.width*0.02, root.height*0.15
+            Image:
+                id: screenshot
+                size: self.parent.width, self.parent.height * 0.85
+                size_hint: None,None
+                pos: self.parent.pos
+                halign: 'center'
+                source: 'images/activity6.png'
+                opacity: 1
+                allow_stretch: True
+                keep_ratio: False
+
+        ButtonRobotator:
+            id: btn_continue
+            pos: root.width*0.02, root.height*0.02
+            name: 'btn_continue'
+            text: 'ךשמה'
+
+
 <ScreenCreateList>:
     name: 'ScreenCreateList'
     BoxLayout:
@@ -234,8 +329,8 @@
     name: 'ScreenMarkListImage'
     Widget:
         orientation: 'vertical'
-        padding: ['20dp','20dp','20dp','20dp']
-        spacing: '20dp'
+        #padding: ['20dp','20dp','20dp','20dp']
+        #spacing: '20dp'
         canvas.before:
             Color:
                 rgba: 0.2,0.3,0.4,1
@@ -252,6 +347,7 @@
             text: ":הרישי הייחנהל םימיאתמש םיביכרמה תא ונמס"
 
         FloatLayout:
+            id: image_and_checkboxes
             size_hint: None, None
             pos_hint: None, None
             size: root.width*0.9, root.height*0.8
@@ -262,38 +358,40 @@
                 size_hint: None,None
                 pos: self.parent.pos
                 halign: 'center'
-                source: 'images/activity5.png'
+                source: 'images/activity4.png'
                 opacity: 1
                 allow_stretch: True
                 keep_ratio: False
-            CheckBoxRobotator:
+            CheckBoxRobotatorYellow:
                 id: checkbox_1
-                pos: self.parent.x + self.parent.width * 0.817, self.parent.y + self.parent.height * 0.476
-            CheckBoxRobotator:
+                pos: self.pos #self.parent.x + self.parent.width * 0.817, self.parent.y + self.parent.height * 0.476
+            CheckBoxRobotatorYellow:
                 id: checkbox_2
-                pos: self.parent.x + self.parent.width * 0.835, self.parent.y + self.parent.height * 0.368
-            CheckBoxRobotator:
+                pos: self.pos #self.parent.x + self.parent.width * 0.835, self.parent.y + self.parent.height * 0.368
+            CheckBoxRobotatorYellow:
                 id: checkbox_3
-                pos: self.parent.x + self.parent.width * 0.588, self.parent.y + self.parent.height * 0.341
-            CheckBoxRobotator:
+                pos: self.pos #self.parent.x + self.parent.width * 0.588, self.parent.y + self.parent.height * 0.341
+            CheckBoxRobotatorYellow:
                 id: checkbox_4
-                pos: self.parent.x + self.parent.width * 0.401, self.parent.y + self.parent.height * 0.365
-            CheckBoxRobotator:
+                pos: self.pos #self.parent.x + self.parent.width * 0.401, self.parent.y + self.parent.height * 0.365
+            CheckBoxRobotatorYellow:
                 id: checkbox_5
-                pos: self.parent.x + self.parent.width * 0.656, self.parent.y + self.parent.height * 0.620
-            CheckBoxRobotator:
+                pos: self.pos #self.parent.x + self.parent.width * 0.656, self.parent.y + self.parent.height * 0.620
+            CheckBoxRobotatorYellow:
                 id: checkbox_6
-                pos: self.parent.x + self.parent.width * 0.528, self.parent.y + self.parent.height * 0.842
-            CheckBoxRobotator:
+                pos: self.pos #self.parent.x + self.parent.width * 0.528, self.parent.y + self.parent.height * 0.842
+            CheckBoxRobotatorYellow:
                 id: checkbox_7
-                pos: self.parent.x + self.parent.width * 0.832, self.parent.y + self.parent.height * 0.909
-            CheckBoxRobotator:
+                pos: self.pos #self.parent.x + self.parent.width * 0.832, self.parent.y + self.parent.height * 0.909
+            CheckBoxRobotatorYellow:
                 id: checkbox_8
-                pos: self.parent.x + self.parent.width * 0.184, self.parent.y + self.parent.height * 0.428
+                pos: self.pos #self.parent.x + self.parent.width * 0.184, self.parent.y + self.parent.height * 0.428
         ButtonRobotator:
             id: btn_continue
+            pos: root.width*0.05, root.height*0.02
             name: 'btn_continue'
             text: 'ךשמה'
+            on_press: app.on_btn_done()
 
 
 <ScreenDyslexia>:
