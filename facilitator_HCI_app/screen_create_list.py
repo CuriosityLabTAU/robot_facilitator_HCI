@@ -79,7 +79,10 @@ class ScreenCreateList (Screen):
     def update_label(self, activity, activity_type):
         print("screen_create_list: start_activity", activity)
         if (activity_type == 'group'):
-            self.ids['label_instructions'].text = '2 רפסמ טלבאט לע תיתצובק המישר וניכה'
+            if (self.the_app.tablet_id != '2'):
+                self.ids['label_instructions'].text = '2 רפסמ טלבאט לע תיתצובק המישר וניכה'
+            else:
+                self.ids['label_instructions'].text = ' תיתצובק המישר וניכה'
         elif (activity_type == 'individual'):
             self.ids['label_instructions'].text = self.activity_statements[activity]
         self.show_buttons('continue')
