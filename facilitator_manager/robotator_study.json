@@ -58,7 +58,7 @@
       "next": "tablet_show_audience_list_group"
     },
     {"tag": "tablet_show_audience_list_group", "target": "tablet",
-      "action":"show_screen", "screen_name":"ScreenCreateList", "activity": "activity1", "activity_type": "group", "tablets":[2],
+      "action":"show_screen", "screen_name":"ScreenCreateList", "activity": "activity1", "activity_type": "group", "tablets":[1,2,3,4,5],
       "next": "tablet_disable_audience_list_group"
     },
     {"tag": "tablet_disable_audience_list_group", "target": "tablet",
@@ -98,8 +98,11 @@
     },
     {"tag": "general_group_disagree", "target": "robot",
       "action":"play_audio_file", "parameters":["general_group_disagree"],
-
-      "next": "robot_activity2_01"
+      "next": "robot_sleep_activity1_06"
+    },
+    {"tag": "robot_sleep_activity1_06", "target": "robot",
+      "action":"sleep", "seconds":"60",
+      "end": {"timeout": "robot_activity2_01", "all_agree": "robot_activity2_01", "not_all_agree": "robot_activity2_01"}
     },
 
 
@@ -316,7 +319,7 @@
       "next": "tablet_show_audience_list_group"
     },
     {"tag": "tablet_show_audience_list_group", "target": "tablet",
-      "action":"show_screen", "screen_name":"ScreenCreateList", "activity": "activity3", "activity_type": "group", "tablets":[2],
+      "action":"show_screen", "screen_name":"ScreenCreateList", "activity": "activity3", "activity_type": "group", "tablets":[1,2,3,4,5],
       "next": "tablet_disable_audience_list_group"
     },
     {"tag": "tablet_disable_audience_list_group", "target": "tablet",
@@ -326,7 +329,7 @@
 
     {"tag": "robot_sleep_activity3_03", "target": "robot",
       "action":"sleep", "seconds":"90",
-      "end": {"timeout": "robot_30sec_activity3_02", "done": "general_group_read_and_mark"}
+      "end": {"timeout": "robot_30sec_activity3_02", "done": "general_group_read_and_mark"}, "tablets": [2]
     },
     {"tag": "robot_30sec_activity3_02", "target": "robot",
       "action":"play_audio_file", "parameters": ["30_seconds_left"],
@@ -335,7 +338,7 @@
     },
     {"tag": "robot_sleep_activity3_04", "target": "robot",
       "action":"sleep", "seconds":"30",
-      "end": {"timeout": "robot_activity3_group_02", "done": "general_group_read_and_mark"}
+      "end": {"timeout": "robot_activity3_group_02", "done": "general_group_read_and_mark"}, "tablets": [2]
     },
 
     {"tag": "general_group_read_and_mark", "target": "robot",
@@ -357,8 +360,11 @@
     },
     {"tag": "general_group_disagree", "target": "robot",
       "action":"play_audio_file", "parameters":["general_group_disagree"],
-
-      "next": "robot_activity4_01"
+      "next": "robot_sleep_activity1_06"
+    },
+    {"tag": "robot_sleep_activity3_06", "target": "robot",
+      "action":"sleep", "seconds":"60",
+      "end": {"timeout": "robot_activity4_01", "all_agree": "robot_activity4_01", "not_all_agree": "robot_activity4_01"}
     },
 
 
@@ -576,7 +582,7 @@
       "next": "tablet_show_audience_list_group"
     },
     {"tag": "tablet_show_audience_list_group", "target": "tablet",
-      "action":"show_screen", "screen_name":"ScreenCreateList", "activity": "activity5", "activity_type": "group", "tablets":[2],
+      "action":"show_screen", "screen_name":"ScreenCreateList", "activity": "activity5", "activity_type": "group", "tablets":[1,2,3,4,5],
       "next": "tablet_disable_audience_list_group"
     },
     {"tag": "tablet_disable_audience_list_group", "target": "tablet",
@@ -586,7 +592,7 @@
 
     {"tag": "robot_sleep_activity5_03", "target": "robot",
       "action":"sleep", "seconds":"90",
-      "end": {"timeout": "robot_30sec_activity5_02", "done": "general_group_read_and_mark"}
+      "end": {"timeout": "robot_30sec_activity5_02", "done": "general_group_read_and_mark"}, "tablets": [2]
     },
     {"tag": "robot_30sec_activity5_02", "target": "robot",
       "action":"play_audio_file", "parameters": ["30_seconds_left"],
@@ -595,7 +601,7 @@
     },
     {"tag": "robot_sleep_activity5_04", "target": "robot",
       "action":"sleep", "seconds":"30",
-      "end": {"timeout": "robot_activity5_group_02", "done": "general_group_read_and_mark"}
+      "end": {"timeout": "robot_activity5_group_02", "done": "general_group_read_and_mark"}, "tablets": [2]
     },
 
     {"tag": "general_group_read_and_mark", "target": "robot",
@@ -622,7 +628,7 @@
     },
     {"tag": "robot_sleep_activity5_06", "target": "robot",
       "action":"sleep", "seconds":"60",
-      "end": {"timeout": "robot_activity6_01"}
+      "end": {"timeout": "robot_activity6_01", "all_agree": "robot_activity6_01", "not_all_agree": "robot_activity6_01"}
     },
 
 

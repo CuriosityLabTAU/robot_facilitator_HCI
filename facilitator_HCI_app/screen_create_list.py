@@ -21,11 +21,11 @@ class ScreenCreateList (Screen):
         super(Screen, self).__init__()
 
         # this bind is from the HebrewManager, to change the text order as it is printed
-        self.ids['text_input_1'].bind(text=HebrewManagement.text_change)
-        self.ids['text_input_2'].bind(text=HebrewManagement.text_change)
-        self.ids['text_input_3'].bind(text=HebrewManagement.text_change)
-        self.ids['text_input_4'].bind(text=HebrewManagement.text_change)
-        self.ids['text_input_5'].bind(text=HebrewManagement.text_change)
+        # self.ids['text_input_1'].bind(text=HebrewManagement.text_change)
+        # self.ids['text_input_2'].bind(text=HebrewManagement.text_change)
+        # self.ids['text_input_3'].bind(text=HebrewManagement.text_change)
+        # self.ids['text_input_4'].bind(text=HebrewManagement.text_change)
+        # self.ids['text_input_5'].bind(text=HebrewManagement.text_change)
 
         # this bind is from the kivy_logger.py in order to log the text
         self.ids['text_input_1'].bind(text=self.ids['text_input_1'].on_text_change)
@@ -79,7 +79,10 @@ class ScreenCreateList (Screen):
     def update_label(self, activity, activity_type):
         print("screen_create_list: start_activity", activity)
         if (activity_type == 'group'):
-            self.ids['label_instructions'].text = '2 רפסמ טלבאט לע תיתצובק המישר וניכה'
+            if (self.the_app.tablet_id != '2'):
+                self.ids['label_instructions'].text = '2 רפסמ טלבאט לע תיתצובק המישר וניכה'
+            else:
+                self.ids['label_instructions'].text = ' תיתצובק המישר וניכה'
         elif (activity_type == 'individual'):
             self.ids['label_instructions'].text = self.activity_statements[activity]
         self.show_buttons('continue')

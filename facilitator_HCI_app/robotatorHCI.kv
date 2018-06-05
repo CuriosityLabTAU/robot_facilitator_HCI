@@ -325,25 +325,35 @@
             text: "להק ומשיר"
             size_hint: 1,1
 
-        TextInputRobotator:
-            id: text_input_1
-            name: "text_input_1"
-        TextInputRobotator:
-            id: text_input_2
-            name: "text_input_2"
-        TextInputRobotator:
-            id: text_input_3
-            name: "text_input_3"
-        TextInputRobotator:
-            id: text_input_4
-            name: "text_input_4"
-            opacity: 0
-            disabled: True
-        TextInputRobotator:
-            id: text_input_5
-            name: "text_input_5"
-            opacity: 0
-            disabled: True
+        BoxLayout:
+            orientation: 'horizontal'
+            TextInputRobotator:
+                id: text_input_1
+                name: "text_input_1"
+            BoxLayout:
+                size_hint_x: 0.1
+            TextInputRobotator:
+                id: text_input_2
+                name: "text_input_2"
+            BoxLayout:
+                size_hint_x: 0.1
+            TextInputRobotator:
+                id: text_input_3
+                name: "text_input_3"
+        BoxLayout:
+            orientation: 'horizontal'
+            TextInputRobotator:
+                id: text_input_4
+                name: "text_input_4"
+                opacity: 0
+                disabled: True
+            BoxLayout:
+                size_hint_x: 0.1
+            TextInputRobotator:
+                id: text_input_5
+                name: "text_input_5"
+                opacity: 0
+                disabled: True
 
         BoxLayout:
             orientation: 'horizontal'
@@ -365,6 +375,10 @@
                 opacity:0
                 text: 'םיכסמ'
                 disabled: True
+        BoxLayout:
+        BoxLayout:
+        BoxLayout:
+        BoxLayout:
 
 <ScreenMarkListImage>:
     name: 'ScreenMarkListImage'

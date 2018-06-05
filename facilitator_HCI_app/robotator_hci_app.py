@@ -74,8 +74,8 @@ class RobotatorHCIApp(App):
         self.screen_manager.add_widget(screen_scale_image)
         self.screen_manager.add_widget(screen_robot_introduction)
 
-        #self.screen_manager.current = 'ScreenCreateList'  #'ScreenRegister'
-        #self.screen_manager.current_screen.show_screen('activity1', 'individual')
+        self.screen_manager.current = 'ScreenCreateList'  #'ScreenRegister'
+        self.screen_manager.current_screen.show_screen('activity1', 'individual')
 
         #self.screen_manager.current = 'ScreenMarkListImage'
         #self.screen_manager.current_screen.show_screen('activity2', 'statement_1')
@@ -83,7 +83,7 @@ class RobotatorHCIApp(App):
         # self.screen_manager.current = 'ScreenScaleImage'
         # self.screen_manager.current_screen.show_screen('activity6', 'statement_1')
 
-        self.screen_manager.current = 'ScreenRegister'
+        # self.screen_manager.current = 'ScreenRegister'
         #self.screen_manager.current = 'ScreenRobotIntroduction'
 
 

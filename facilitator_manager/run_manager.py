@@ -623,6 +623,8 @@ class ManagerNode():
             self.text_audience_group[log['obj']] = log['comment']
 
     def the_end(self):
+        action = {"action": "rest"}
+        self.run_robot_behavior(action)
         print('THE END')
 
 if __name__ == '__main__':
