@@ -7,6 +7,7 @@ from kivy.uix.checkbox import CheckBox
 from kivy_classes import *
 from kivy_communication import *
 from kivy.core.window import Window
+import json
 
 from kivy.properties import ListProperty, ObjectProperty, BooleanProperty
 
@@ -59,7 +60,7 @@ class ScreenMarkListImage (Screen):
                 if 'check' in ids:
                     if self.ids[ids].active:
                         mark_list.append(ids)
-            KL.log.insert(action=LogAction.press, obj='btn_continue', comment=str(mark_list))
+            KL.log.insert(action=LogAction.press, obj='btn_continue', comment=json.dumps(mark_list))
         elif (self.the_app.condition =='tablet'):
             self.show_next_statement()
 

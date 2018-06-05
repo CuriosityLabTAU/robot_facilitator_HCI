@@ -135,6 +135,7 @@ class ManagerNode():
 
                 nao_message = {"action": action['action'],
                                "parameters": action['parameters']}
+                self.robot_end_signal = {}
                 self.robot_end_signal[action['parameters'][0]] = False
                 self.robot_publisher.publish(json.dumps(nao_message))
                 while not self.robot_end_signal[action['parameters'][0]]:
@@ -152,6 +153,7 @@ class ManagerNode():
                 self.sleep_timer.start()
 
                 # or go on something else
+                self.robot_end_signal = {}
                 for k, v in action["end"].items():
                     self.robot_end_signal[k] = v
 
@@ -161,9 +163,9 @@ class ManagerNode():
                         self.number_of_tablets_done = len(action["tablets"])
                     else:
                         self.number_of_tablets_done = self.number_of_tablets
-                elif 'agree' in action["end"].keys(): # get all agree or not all agree
+                elif 'all_agree' in action["end"].keys(): # get all agree or not all agree
                     self.tablets_agree = {}
-                elif 'same' in action["end"].keys(): # get if all same or not
+                elif 'all_same' in action["end"].keys(): # get if all same or not
                     self.tablets_mark = {}
                     self.tablets_continue = {}
             elif action['action'] == 'run_behavior_with_lookat':
@@ -173,7 +175,7 @@ class ManagerNode():
                 print("@@@@@@@@@@@@@@@@@@the_action", the_action)
                 nao_message = {"action": the_action,
                                "parameters": action['parameters']}
-
+                self.robot_end_signal = {}
                 self.robot_end_signal[action['parameters'][0]] = False
                 self.robot_publisher.publish(json.dumps(nao_message))
                 while not self.robot_end_signal[action['parameters'][0]]:
@@ -512,7 +514,7 @@ class ManagerNode():
                 else:
                     self.run_study_action(self.actions[self.robot_end_signal['not_all_agree']])
 
-        if 'btn_continue' in log['obj'] and log['action'] == 'press':
+        if 'btn_continue' in log['obj'] and log['action'] == 'press' and len(log['comment']) > 1:
             client_ip = log['client_ip']
             tablet_id = self.tablets_ids[client_ip]
             subject_id = self.tablets_subjects_ids[tablet_id]
@@ -520,20 +522,20 @@ class ManagerNode():
             if tablet_id not in self.tablets_mark:
                 self.tablets_mark[tablet_id] = []
             print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ log[comment]",log['comment'])
-            self.tablets_mark[tablet_id] = log['comment'] # TODO: parse the comment
+            self.tablets_mark[tablet_id] = json.loads(log['comment']) # TODO: parse the comment
 
-            self.count_done = 0
+            self.count_continue = 0
             self.tablets_continue[tablet_id] = True
-            for value in self.tablets_done.values():
+            for value in self.tablets_continue.values():
                 if value == True:
-                    self.count_done += 1
-            if (self.count_done == self.number_of_tablets):
+                    self.count_continue += 1
+            if (self.count_continue == self.number_of_tablets):
                 try:
                     self.sleep_timer.cancel()
                     print("self.sleep_timer.cancel()")
                 except:
                     print("failed self.sleep_timer_cancel")
-                self.count_done = 0
+                self.count_continue = 0
 
                 # check if same, find two that are not
                 tablet_pairs = []
