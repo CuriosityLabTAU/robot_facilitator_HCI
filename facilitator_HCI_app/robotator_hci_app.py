@@ -167,7 +167,7 @@ class RobotatorHCIApp(App):
                     the_msg = the_msg + '}'
                 json_msg = json.loads(the_msg)
                 json_data.append(json_msg)
-                # print("data_received err", sys.exc_info())
+                # print("data_received err", sys.exc_info()) v
 
         for data in json_data:
             print("data['action']", data['action'])
