@@ -21,11 +21,11 @@ class ScreenCreateList (Screen):
         super(Screen, self).__init__()
 
         # this bind is from the HebrewManager, to change the text order as it is printed
-        self.ids['text_input_1'].bind(text=HebrewManagement.text_change)
-        self.ids['text_input_2'].bind(text=HebrewManagement.text_change)
-        self.ids['text_input_3'].bind(text=HebrewManagement.text_change)
-        self.ids['text_input_4'].bind(text=HebrewManagement.text_change)
-        self.ids['text_input_5'].bind(text=HebrewManagement.text_change)
+        # self.ids['text_input_1'].bind(text=HebrewManagement.text_change)
+        # self.ids['text_input_2'].bind(text=HebrewManagement.text_change)
+        # self.ids['text_input_3'].bind(text=HebrewManagement.text_change)
+        # self.ids['text_input_4'].bind(text=HebrewManagement.text_change)
+        # self.ids['text_input_5'].bind(text=HebrewManagement.text_change)
 
         # this bind is from the kivy_logger.py in order to log the text
         self.ids['text_input_1'].bind(text=self.ids['text_input_1'].on_text_change)
