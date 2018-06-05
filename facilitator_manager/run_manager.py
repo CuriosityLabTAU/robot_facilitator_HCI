@@ -64,6 +64,7 @@ class ManagerNode():
 
         self.robot_end_signal = {}
         self.tablets_done = {}
+        self.number_of_tablets_done = self.number_of_tablets
         self.tablets_agree = {}
         self.tablets_mark = {}
         self.tablets_continue = {}
@@ -156,6 +157,10 @@ class ManagerNode():
 
                 if 'done' in action["end"].keys(): # get all done
                     self.tablets_done = {}
+                    if 'tablets' in action:
+                        self.number_of_tablets_done = len(action["tablets"])
+                    else:
+                        self.number_of_tablets_done = self.number_of_tablets
                 elif 'agree' in action["end"].keys(): # get all agree or not all agree
                     self.tablets_agree = {}
                 elif 'same' in action["end"].keys(): # get if all same or not
@@ -475,7 +480,7 @@ class ManagerNode():
             for value in self.tablets_done.values():
                 if value == True:
                     self.count_done += 1
-            if (self.count_done == self.number_of_tablets):
+            if (self.count_done == self.number_of_tablets_done):
                 try:
                     self.sleep_timer.cancel()
                     print("self.sleep_timer.cancel()")
@@ -488,7 +493,7 @@ class ManagerNode():
             client_ip = log['client_ip']
             tablet_id = self.tablets_ids[client_ip]
             subject_id = self.tablets_subjects_ids[tablet_id]
-            self.tablets_agree[tablet_id] = True
+            self.tablets_agree[tablet_id] = not 'disagree' in log['obj']
             self.count_responded = len(self.tablets_agree.keys())
             if (self.count_responded == self.number_of_tablets):
                 try:

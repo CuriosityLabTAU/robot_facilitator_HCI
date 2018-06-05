@@ -38,7 +38,7 @@ class ScreenCreateList (Screen):
         pass
 
 
-    def disable_tablet(self):
+    def disable_screen(self):
         for id_i in self.ids:
             self.ids[id_i].disabled = True
 
@@ -66,6 +66,12 @@ class ScreenCreateList (Screen):
             if (self.the_app.tablet_id == '2'):
                 self.ids['text_input_4'].opacity = 1
                 self.ids['text_input_5'].opacity = 1
+                self.ids['text_input_1'].disabled = True
+                self.ids['text_input_2'].disabled = True
+                self.ids['text_input_3'].disabled = True
+                self.ids['text_input_4'].disabled = False
+                self.ids['text_input_5'].disabled = False
+
         elif activity_type == "individual":
             self.ids['text_input_4'].opacity = 0
             self.ids['text_input_5'].opacity = 0
@@ -82,7 +88,7 @@ class ScreenCreateList (Screen):
     def show_buttons(self, which):
         # call from manager
         # which = agree_disagree / continue
-        if (which == 'agree_disagree'):
+        if ("agree" in which):
             self.ids['btn_agree'].opacity = 1
             self.ids['btn_disagree'].opacity = 1
             self.ids['btn_done'].opacity = 0
