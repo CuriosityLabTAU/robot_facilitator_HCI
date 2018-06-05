@@ -144,12 +144,14 @@ class RobotatorHCIApp(App):
             print("register_tablet", message_str)
             KC.client.send_message(message_str)
         elif self.condition =='tablet':
-            self.screen_manager.current = 'ScreenCreateList'
             if (self.session == 'session1'):
-                self.screen_manager.current_screen.show_screen('activity1', 'individual')
+                self.screen_manager.current = 'ScreenRobotIntroduction'
+                self.screen_manager.current_screen.show_screen('introduction', 'individual')
             elif (self.session =='session2'):
+                self.screen_manager.current = 'ScreenCreateList'
                 self.screen_manager.current_screen.show_screen('activity3', 'individual')
             elif (self.session =='session3'):
+                self.screen_manager.current = 'ScreenCreateList'
                 self.screen_manager.current_screen.show_screen('activity5', 'individual')
 
     def data_received(self, data):
