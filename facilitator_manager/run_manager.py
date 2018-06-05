@@ -7,6 +7,9 @@ from threading import Timer
 import threading
 import random
 
+
+robot_path = '/home/nao/naoqi/sounds/HCI/'
+
 class ManagerNode():
 
     number_of_tablets =1
@@ -122,9 +125,13 @@ class ManagerNode():
 
         elif action['target'] == 'robot':
             if action["action"] in ["run_behavior", "play_audio_file"]:
-                # DEBUG
-                action['parameters'] = ['robot_facilitator-ad2c5c/robotator_behaviors_old/r5', 'wait']
-                action['action'] = 'run_behavior'
+                # go over parameters and add robot_path
+                for i, p in enumerate(action['parameters']):
+                    if 'wait' not in p:
+                        action['parameters'][i] = robot_path + p
+                        if "audio" in action["action"]:
+                            action['parameters'][i] += ".wav"
+
                 nao_message = {"action": action['action'],
                                "parameters": action['parameters']}
                 self.robot_end_signal[action['parameters'][0]] = False
