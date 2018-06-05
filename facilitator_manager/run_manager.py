@@ -12,7 +12,7 @@ robot_path = '/home/nao/naoqi/sounds/HCI/'
 
 class ManagerNode():
 
-    number_of_tablets =1
+    number_of_tablets = 1
     tablets = {}    #in the form of {tablet_id_1:{"subject_id":subject_id, "tablet_ip";tablet_ip}
                                     #,tablet_id_2:{"subject_id":subject_id, "tablet_ip";tablet_ip}
 
@@ -396,16 +396,23 @@ class ManagerNode():
             #    self.tablets_audience_done[key]=False
 
 
-    def register_tablet(self, tablet_id, group_id, client_ip):
-        print("register_tablet", type(client_ip),client_ip)
-        print(self.tablets)
-        self.tablets[tablet_id] = {'subject_id':group_id, 'tablet_ip':client_ip}
-        self.tablets_subjects_ids[tablet_id] = group_id
-        self.tablets_ips[tablet_id] = client_ip
-        self.tablets_ids[client_ip] = tablet_id
-        self.tablets_audience_done[tablet_id] = False
+    def register_tablet(self, parameters, client_ip):
+        if 'robot' not in parameters['condition']:
+            print('WRONG CONDITION')
+            return
 
-        nao_message = {'action': 'say_text_to_speech', 'client_ip':client_ip,'parameters': ['register tablet', 'tablet_id',str(tablet_id), 'group id',str(group_id)]}
+        print("register_tablet", type(parameters['tablet_id']),client_ip)
+        print(self.tablets)
+        self.tablets[parameters['tablet_id']] = {'subject_id': parameters['group_id'], 'tablet_ip':client_ip}
+        self.tablets_subjects_ids[parameters['tablet_id']] = parameters['group_id']
+        self.tablets_ips[parameters['tablet_id']] = client_ip
+        self.tablets_ids[client_ip] = parameters['tablet_id']
+        self.tablets_audience_done[parameters['tablet_id']] = False
+        self.session = parameters['session']
+
+        nao_message = {'action': 'say_text_to_speech', 'client_ip':client_ip,
+                       'parameters': ['register tablet', 'tablet_id',str(parameters['tablet_id']),
+                                      'group id',str(parameters['group_id'])]}
         self.robot_publisher.publish(json.dumps(nao_message))
         if (len(self.tablets) >= self.number_of_tablets):
             print("two tablets are registered")
@@ -452,7 +459,7 @@ class ManagerNode():
         data_json = json.loads(data.data)
         action = data_json['action']
         if (action == 'register_tablet'):
-            self.register_tablet(data_json['parameters']['tablet_id'], data_json['parameters']['group_id'],
+            self.register_tablet(data_json['parameters'],
                                  data_json['client_ip'])
             {'action': 'play_audio_file', 'parameters': ['/home/nao/naoqi/sounds/dyslexia/s_w15_m7.wav']}
         elif (action == 'audience_done'):

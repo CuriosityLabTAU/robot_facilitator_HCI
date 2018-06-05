@@ -135,7 +135,9 @@ class RobotatorHCIApp(App):
         self.tablet_id = self.screen_manager.current_screen.ids['tablet_id'].text
         group_id = self.screen_manager.current_screen.ids['group_id'].text
         message = {'tablet_to_manager': {'action': 'register_tablet',
-                                         'parameters': {'group_id': group_id, 'tablet_id': self.tablet_id}}}
+                                         'parameters': {'group_id': group_id, 'tablet_id': self.tablet_id,
+                                                        'condition': self.condition,
+                                                        'session': self.session}}}
         #if KC.client.status == True:
         if self.condition == 'robot':
             message_str = str(json.dumps(message))
