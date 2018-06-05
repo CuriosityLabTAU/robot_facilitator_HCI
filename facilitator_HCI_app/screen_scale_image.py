@@ -6,6 +6,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.checkbox import CheckBox
 from kivy_classes import *
 from kivy_communication import *
+import json
 
 from kivy.properties import ListProperty, ObjectProperty, BooleanProperty
 
@@ -40,7 +41,7 @@ class ScreenScaleImage (Screen):
                 if 'check' in ids:
                     if self.ids[ids].active:
                         mark_list.append(ids)
-            KL.log.insert(action=LogAction.press, obj='btn_continue', comment=str(mark_list))
+            KL.log.insert(action=LogAction.press, obj='btn_continue', comment=json.dumps(mark_list))
         elif (self.the_app.condition == 'tablet'):
             if (self.current_statement < len(self.activity6_statements)):
                 self.show_screen(self.activity, "statement_" + str(self.current_statement + 1))
