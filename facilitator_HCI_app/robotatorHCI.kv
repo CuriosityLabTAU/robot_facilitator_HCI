@@ -157,26 +157,37 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
-    Image:
-        id: intro_image
-        size: root.width * 0.6, root.height * 0.6
-        size_hint: None,None
-        pos: root.width * 0.2, root.height* 0.1
-        halign: 'center'
-        source: 'images/introduction.png'
-        opacity: 1
-        allow_stretch: True
-        keep_ratio: False
+        Image:
+            id: intro_image
+            size: root.width * 0.6, root.height * 0.9
+            size_hint: None,None
+            pos: root.width * 0.2, root.height* 0.1
+            halign: 'center'
+            source: 'images/introduction_tablet.png'
+            opacity: 1
+            allow_stretch: True
+            keep_ratio: False
 
-    LabelRobotator:
-        text: '!םיאבה םיכורב'
-        font_size: '24sp'
-        width: root.width
-        size_hint: None, None
-        #size: root.width * 0.8, root.height * 0.4
-        halign: 'center'
-        pos_hint: {'center_x':0.5,'center_y':0.9}
+        LabelRobotator:
+            text: '!םיאבה םיכורב'
+            font_size: '24sp'
+            width: root.width
+            size_hint: None, None
+            #size: root.width * 0.8, root.height * 0.1
+            halign: 'center'
+            pos_hint: {'center_x':0.5,'center_y':0.9}
 
+        ButtonRobotator:
+            id: intro_continue
+            name: 'intro_continue'
+            background_color: 0.5,0.5,0.5,1
+            background_normal: ''
+            text: 'ךשמה'
+            font_size: 16
+            size_hint: None, None
+            size: root.width * 0.15, root.height * 0.05
+            pos: root.width * 0.3, root.height * 0.2
+            on_press: app.btn_done()
 
 <ScreenScaleImage>:
     name: 'ScreenScaleImage'

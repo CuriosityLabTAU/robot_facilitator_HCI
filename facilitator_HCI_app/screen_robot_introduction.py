@@ -32,11 +32,10 @@ class ScreenRobotIntroduction (Screen):
     def show_screen(self, activity, activity_type):
         # activity: "activity1"/"activity2"
         # activity_type: "statement_1"/"statement_2"/"statement_3"/"statement_4"
-        print("screen_mark_list_image show_screen", activity, activity_type)
-        self.activity = activity
-        self.activity_type = activity_type
-        self.current_statement = int(activity_type[10:])
-        if (activity == 'activity2'):
-            self.ids['label_instructions'].text = self.activity2_statements[activity_type]
-        elif (activity == 'activity4'):
-            self.ids['label_instructions'].text = self.activity4_statements[activity_type]
+        print("screen_robot_introduction", activity, activity_type)
+        if (self.the_app.condition =='robot'):
+            self.ids['intro_image'].source = 'images/introduction_robot.png'
+            self.ids['intro_continue'].opacity = 0
+            self.ids['intro_continue'].disabled = True
+        elif (self.the_app.condition =='tablet'):
+            self.ids['intro_image'].source = 'images/introduction_tablet.png'
