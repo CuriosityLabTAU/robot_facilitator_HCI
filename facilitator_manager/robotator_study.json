@@ -1,13 +1,18 @@
 {
   "session1": [
     {
-      "tag": "start", "target": "tablet",
+      "tag": "start", "target": "robot",
+      "action":"wake_up",
+      "next": "introduction_screen"
+    },
+    {
+      "tag": "introduction_screen", "target": "tablet",
       "action":"show_screen", "screen_name":"ScreenRobotIntroduction", "activity":"none", "activity_type":"none", "tablets":[1,2,3,4,5],
       "next": "robot_introduction"
     },
     {"tag": "robot_introduction", "target": "robot",
       "action":"play_audio_file", "parameters":["robot_introduction"],
-      "next": "robot_activity1_01"
+      "next": "robot_activity1_01", "debug": "robot_activity1_01"
     },
 
     {"tag": "robot_activity1_01", "target": "robot",
@@ -254,7 +259,12 @@
     ],
   "session2": [
     {
-      "tag": "start", "target": "tablet",
+      "tag": "start", "target": "robot",
+      "action":"wake_up",
+      "next": "introduction_screen"
+    },
+    {
+      "tag": "introduction_screen", "target": "tablet",
       "action":"show_screen", "screen_name":"ScreenRobotIntroduction", "tablets":[1,2,3,4,5],
       "next": "robot_introduction"
     },
@@ -508,7 +518,12 @@
     ],
   "session3": [
     {
-      "tag": "start", "target": "tablet",
+      "tag": "start", "target": "robot",
+      "action":"wake_up",
+      "next": "introduction_screen"
+    },
+    {
+      "tag": "introduction_screen", "target": "tablet",
       "action":"show_screen", "screen_name":"ScreenRobotIntroduction", "tablets":[1,2,3,4,5],
       "next": "robot_introduction"
     },
