@@ -92,12 +92,12 @@
       "end": {"timeout": "robot_activity2_01", "all_agree": "general_group_agree", "not_all_agree": "general_group_disagree"}
     },
     {"tag": "general_group_agree", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_group_agree"],
+      "action":"run_behavior", "parameters":["general_group_agree"],
 
       "next": "robot_activity2_01"
     },
     {"tag": "general_group_disagree", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_group_disagree"],
+      "action":"run_behavior", "parameters":["general_group_disagree"],
       "next": "robot_sleep_activity1_06"
     },
     {"tag": "robot_sleep_activity1_06", "target": "robot",
@@ -120,7 +120,7 @@
       "next": "robot_activity2_03"
     },
     {"tag": "robot_activity2_03", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_mark_and_continue"],
+      "action":"run_behavior", "parameters":["general_mark_and_continue"],
       "next": "robot_sleep_activity2_01"
     },
     {"tag": "robot_sleep_activity2_01", "target": "robot",
@@ -134,7 +134,6 @@
     },
     {"tag": "robot_activity2_05", "target": "robot",
       "action":"run_behavior_with_lookat", "parameters":["general_not_same"], "lookat": [],
-
       "next": "robot_sleep_activity2_02"
     },
     {"tag": "robot_sleep_activity2_02", "target": "robot",
@@ -142,7 +141,7 @@
       "end": {"timeout": "robot_activity2_07", "not_all_same": "robot_activity2_07", "all_same": "robot_activity2_06"}
     },
     {"tag": "robot_activity2_06", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_same"], "lookat": [],
+      "action":"run_behavior", "parameters":["general_same"], "lookat": [],
       "next": "robot_activity2_07"
     },
 
@@ -155,7 +154,7 @@
       "next": "robot_activity2_08"
     },
     {"tag": "robot_activity2_08", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_mark_and_continue"],
+      "action":"run_behavior", "parameters":["general_mark_and_continue"],
 
       "next": "robot_sleep_activity2_03"
     },
@@ -190,7 +189,7 @@
       "next": "robot_activity2_13"
     },
     {"tag": "robot_activity2_13", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_mark_and_continue"],
+      "action":"run_behavior", "parameters":["general_mark_and_continue"],
 
       "next": "robot_sleep_activity2_05"
     },
@@ -225,7 +224,7 @@
       "next": "robot_activity2_18"
     },
     {"tag": "robot_activity2_18", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_mark_and_continue"],
+      "action":"run_behavior", "parameters":["general_mark_and_continue"],
 
       "next": "robot_sleep_activity2_07"
     },
@@ -354,12 +353,12 @@
       "end": {"timeout": "robot_activity4_01", "all_agree": "general_group_agree", "not_all_agree": "general_group_disagree"}
     },
     {"tag": "general_group_agree", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_group_agree"],
+      "action":"run_behavior", "parameters":["general_group_agree"],
 
       "next": "robot_activity4_01"
     },
     {"tag": "general_group_disagree", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_group_disagree"],
+      "action":"run_behavior", "parameters":["general_group_disagree"],
       "next": "robot_sleep_activity1_06"
     },
     {"tag": "robot_sleep_activity3_06", "target": "robot",
@@ -382,7 +381,7 @@
       "next": "robot_activity4_03"
     },
     {"tag": "robot_activity4_03", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_mark_and_continue"],
+      "action":"run_behavior", "parameters":["general_mark_and_continue"],
 
       "next": "robot_sleep_activity4_01"
     },
@@ -404,7 +403,7 @@
       "end": {"timeout": "robot_activity4_07", "not_all_same": "robot_activity4_07", "all_same": "robot_activity4_06"}
     },
     {"tag": "robot_activity4_06", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_same"], "lookat": [],
+      "action":"run_behavior", "parameters":["general_same"], "lookat": [],
       "next": "robot_activity4_07"
     },
 
@@ -417,7 +416,7 @@
       "next": "robot_activity4_08"
     },
     {"tag": "robot_activity4_08", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_mark_and_continue"],
+      "action":"run_behavior", "parameters":["general_mark_and_continue"],
 
       "next": "robot_sleep_activity4_03"
     },
@@ -452,7 +451,7 @@
       "next": "robot_activity4_13"
     },
     {"tag": "robot_activity4_13", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_mark_and_continue"],
+      "action":"run_behavior", "parameters":["general_mark_and_continue"],
 
       "next": "robot_sleep_activity4_05"
     },
@@ -487,7 +486,7 @@
       "next": "robot_activity4_18"
     },
     {"tag": "robot_activity4_18", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_mark_and_continue"],
+      "action":"run_behavior", "parameters":["general_mark_and_continue"],
 
       "next": "robot_sleep_activity4_07"
     },
@@ -577,8 +576,7 @@
     },
 
     {"tag": "robot_activity5_group_01", "target": "robot",
-      "action":"play_audio_file", "parameters":["activity5_group_01"],
-
+      "action":"run_behavior", "parameters":["activity5_group_01"],
       "next": "tablet_show_audience_list_group"
     },
     {"tag": "tablet_show_audience_list_group", "target": "tablet",
@@ -617,12 +615,12 @@
       "end": {"timeout": "robot_activity6_01", "all_agree": "general_group_agree", "not_all_agree": "general_group_disagree"}
     },
     {"tag": "general_group_agree", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_group_agree"],
+      "action":"run_behavior", "parameters":["general_group_agree"],
 
       "next": "robot_activity6_01"
     },
     {"tag": "general_group_disagree", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_group_disagree"],
+      "action":"run_behavior", "parameters":["general_group_disagree"],
 
       "next": "robot_sleep_activity5_06"
     },
@@ -663,7 +661,7 @@
       "end": {"timeout": "robot_activity6_07", "not_all_same": "robot_activity6_07", "all_same": "robot_activity6_06"}
     },
     {"tag": "robot_activity6_06", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_same"], "lookat": [],
+      "action":"run_behavior", "parameters":["general_same"], "lookat": [],
       "next": "robot_activity6_07"
     },
 
@@ -676,7 +674,7 @@
       "next": "robot_activity6_08"
     },
     {"tag": "robot_activity6_08", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_mark_and_continue"],
+      "action":"run_behavior", "parameters":["general_mark_and_continue"],
 
       "next": "robot_sleep_activity6_03"
     },
@@ -711,7 +709,7 @@
       "next": "robot_activity6_13"
     },
     {"tag": "robot_activity6_13", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_mark_and_continue"],
+      "action":"run_behavior", "parameters":["general_mark_and_continue"],
 
       "next": "robot_sleep_activity6_05"
     },
@@ -746,7 +744,7 @@
       "next": "robot_activity6_18"
     },
     {"tag": "robot_activity6_18", "target": "robot",
-      "action":"play_audio_file", "parameters":["general_mark_and_continue"],
+      "action":"run_behavior", "parameters":["general_mark_and_continue"],
 
       "next": "robot_sleep_activity6_07"
     },
