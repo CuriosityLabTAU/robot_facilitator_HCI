@@ -187,7 +187,7 @@
             size_hint: None, None
             size: root.width * 0.15, root.height * 0.05
             pos: root.width * 0.3, root.height * 0.2
-            on_press: app.btn_done()
+            on_press: app.on_btn_done()
 
 <ScreenScaleImage>:
     name: 'ScreenScaleImage'
@@ -311,73 +311,62 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
-        TimerLabel:
-            background_color: 1,0,0,1
-            id: timer_time
-            text:""
-            font_name: "fonts/the_font.ttf"
-            font_size: '20sp'
-            text_size: self.size
-            halign: 'left'
-            color: 1,1,1,1
-        LabelRobotator:
-            id: label_instructions
-            text: "להק ומשיר"
-            size_hint: 1,1
-
         BoxLayout:
-            orientation: 'horizontal'
+            orientation: 'vertical'
+            TimerLabel:
+                background_color: 1,0,0,1
+                id: timer_time
+                text:""
+                font_name: "fonts/the_font.ttf"
+                font_size: '20sp'
+                text_size: self.size
+                halign: 'left'
+                color: 1,1,1,1
+            LabelRobotator:
+                id: label_instructions
+                text: "להק ומשיר"
+                size_hint: 1,1
+
             TextInputRobotator:
                 id: text_input_1
                 name: "text_input_1"
-            BoxLayout:
-                size_hint_x: 0.1
             TextInputRobotator:
                 id: text_input_2
                 name: "text_input_2"
-            BoxLayout:
-                size_hint_x: 0.1
             TextInputRobotator:
                 id: text_input_3
                 name: "text_input_3"
-        BoxLayout:
-            orientation: 'horizontal'
             TextInputRobotator:
                 id: text_input_4
                 name: "text_input_4"
                 opacity: 0
                 disabled: True
-            BoxLayout:
-                size_hint_x: 0.1
             TextInputRobotator:
                 id: text_input_5
                 name: "text_input_5"
                 opacity: 0
                 disabled: True
 
-        BoxLayout:
-            orientation: 'horizontal'
-            spacing: 150
-            ButtonRobotator:
-                id: btn_done
-                name: 'btn_done'
-                text: 'יתמייס'
-                on_press: app.on_btn_done()
-            ButtonRobotator:
-                id: btn_disagree
-                name: 'btn_disagree'
-                text: 'םיכסמ אל'
-                opacity: 0
-                disabled:True
-            ButtonRobotator:
-                id: btn_agree
-                name: 'btn_agree'
-                opacity:0
-                text: 'םיכסמ'
-                disabled: True
-        BoxLayout:
-        BoxLayout:
-        BoxLayout:
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: 150
+                ButtonRobotator:
+                    id: btn_done
+                    name: 'btn_done'
+                    text: 'יתמייס'
+                    on_press: app.on_btn_done()
+                ButtonRobotator:
+                    id: btn_disagree
+                    name: 'btn_disagree'
+                    text: 'םיכסמ אל'
+                    opacity: 0
+                    disabled:True
+                ButtonRobotator:
+                    id: btn_agree
+                    name: 'btn_agree'
+                    opacity:0
+                    text: 'םיכסמ'
+                    disabled: True
         BoxLayout:
 
 <ScreenMarkListImage>:

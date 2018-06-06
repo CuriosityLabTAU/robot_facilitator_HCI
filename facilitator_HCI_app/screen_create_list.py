@@ -21,11 +21,11 @@ class ScreenCreateList (Screen):
         super(Screen, self).__init__()
 
         # this bind is from the HebrewManager, to change the text order as it is printed
-        # self.ids['text_input_1'].bind(text=HebrewManagement.text_change)
-        # self.ids['text_input_2'].bind(text=HebrewManagement.text_change)
-        # self.ids['text_input_3'].bind(text=HebrewManagement.text_change)
-        # self.ids['text_input_4'].bind(text=HebrewManagement.text_change)
-        # self.ids['text_input_5'].bind(text=HebrewManagement.text_change)
+        self.ids['text_input_1'].bind(text=HebrewManagement.text_change)
+        self.ids['text_input_2'].bind(text=HebrewManagement.text_change)
+        self.ids['text_input_3'].bind(text=HebrewManagement.text_change)
+        self.ids['text_input_4'].bind(text=HebrewManagement.text_change)
+        self.ids['text_input_5'].bind(text=HebrewManagement.text_change)
 
         # this bind is from the kivy_logger.py in order to log the text
         self.ids['text_input_1'].bind(text=self.ids['text_input_1'].on_text_change)
@@ -34,6 +34,9 @@ class ScreenCreateList (Screen):
         self.ids['text_input_4'].bind(text=self.ids['text_input_4'].on_text_change)
         self.ids['text_input_5'].bind(text=self.ids['text_input_5'].on_text_change)
 
+        self.number_done = 0
+        self.activity = 'activity1'
+
     def on_enter(self, *args):
         pass
 
@@ -41,16 +44,35 @@ class ScreenCreateList (Screen):
     def disable_screen(self):
         for id_i in self.ids:
             self.ids[id_i].disabled = True
+        if self.the_app.condition == 'tablet':
+            self.ids['btn_done'].disabled = False
 
     def on_btn_done(self, **kwargs):
         # called when the user clicks
         print ("screen_create_list: on_btn_done")
         if (self.the_app.condition == 'tablet'):   #todo: on tablet condition think what to do here...
-            text = '2 רפסמ טלבאט לע תיתצובק המישר וניכהו ומייסי םלוכש וכח'
-            self.ids['label_instructions'].text = text
-            print("tablet_id",self.the_app.tablet_id)
-            if (self.the_app.tablet_id != '2'):
-                self.disable_tablet()
+            if self.number_done == 0:
+                text = '2 רפסמ טלבאט לע תיתצובק המישר וניכהו ומייסי םלוכש וכח'
+                self.ids['label_instructions'].text = text
+                print("tablet_id",self.the_app.tablet_id)
+                if (self.the_app.tablet_id != '2'):
+                    self.disable_screen()
+                else:
+                    self.show_screen(self.activity, 'group')
+                self.number_done += 1
+            else:
+                self.next_activity()
+
+    def next_activity(self):
+        if '1' in self.the_app.session:
+            self.the_app.screen_manager.current = 'ScreenMarkListImage'
+            self.the_app.screen_manager.current_screen.show_screen('activity2', 'statement_1')
+        elif '2' in self.the_app.session:
+            self.the_app.screen_manager.current = 'ScreenMarkListImage'
+            self.the_app.screen_manager.current_screen.show_screen('activity4', 'statement_1')
+        elif '3' in self.the_app.session:
+            self.the_app.screen_manager.current = 'ScreenScaleImage'
+            self.the_app.screen_manager.current_screen.show_screen('activity6', 'statement_1')
 
 
     def data_received(self, data):
@@ -61,6 +83,7 @@ class ScreenCreateList (Screen):
 
     def show_screen(self, activity, activity_type):
         print ("screen_create_list: show_screen ", activity, activity_type)
+        self.activity = activity
         self.update_label(activity,activity_type)
         if activity_type == "group":
             if (self.the_app.tablet_id == '2'):

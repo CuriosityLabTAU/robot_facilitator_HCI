@@ -39,3 +39,7 @@ class ScreenRobotIntroduction (Screen):
             self.ids['intro_continue'].disabled = True
         elif (self.the_app.condition =='tablet'):
             self.ids['intro_image'].source = 'images/introduction_tablet.png'
+
+    def on_btn_done(self):
+        self.the_app.screen_manager.current = 'ScreenCreateList'
+        self.the_app.screen_manager.current_screen.show_screen('activity1', 'individual')
