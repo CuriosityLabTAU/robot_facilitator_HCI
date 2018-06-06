@@ -38,10 +38,16 @@ class ScreenActivityIntroduction (Screen):
         self.activity_type = activity_type
         print("screen_activity_introduction", activity, activity_type)
         if (self.the_app.condition =='robot'):
-            self.ids['intro_text'].opacity = 0
-            self.ids['intro_text'].disabled = True
-            self.ids['intro_continue'].opacity = 0
-            self.ids['intro_continue'].disabled = True
+            self.ids['activity_text'].opacity = 0
+            self.ids['activity_text'].disabled = True
+            self.ids['activity_continue'].opacity = 0
+            self.ids['activity_continue'].disabled = True
+
+            if 'end' in self.activity_type:
+                self.ids['activity_text'].source = 'images/%s_end.png' % self.activity
+                self.ids['activity_text'].opacity = 1
+                self.ids['activity_continue'].opacity = 0
+                self.ids['activity_continue'].disabled = True
         elif (self.the_app.condition =='tablet'):
             self.ids['activity_text'].opacity = 1
             self.ids['activity_text'].disabled = False

@@ -20,6 +20,12 @@
         <File name="activity6_01" src="RobotatorHCI_Recordings/activity6_01.wav" />
         <File name="general_hurry_up" src="RobotatorHCI_Recordings/general_hurry_up.wav" />
         <File name="robot_facilitator_behaviors" src="robot_facilitator_behaviors.pml" />
+        <File name="activity5_group_01" src="activity5_group_01/activity5_group_01.wav" />
+        <File name="general_group_agree" src="general_group_agree/general_group_agree.wav" />
+        <File name="general_group_disagree" src="general_group_disagree/general_group_disagree.wav" />
+        <File name="general_mark_and_continue" src="general_mark_and_continue/general_mark_and_continue.wav" />
+        <File name="general_not_same" src="general_not_same/general_not_same.wav" />
+        <File name="general_same" src="general_same/general_same.wav" />
     </Resources>
     <Topics />
     <IgnoredPaths />

@@ -128,19 +128,21 @@ class ManagerNode():
         elif action['target'] == 'robot':
             if action["action"] in ["run_behavior", "play_audio_file"]:
                 # go over parameters and add robot_path
-                for i, p in enumerate(action['parameters']):
+                local_action_parameters = [p for p in action['parameters']]
+
+                for i, p in enumerate(local_action_parameters):
                     if 'wait' not in p:
                         if "audio" in action["action"]:
-                            action['parameters'][i] = robot_sound_path + p + ".wav"
+                            local_action_parameters[i] = robot_sound_path + p + ".wav"
                         elif "behavior" in action["action"]:
-                            action['parameters'][i] = robot_behavior_path + p
+                            local_action_parameters[i] = robot_behavior_path + p
 
                 nao_message = {"action": action['action'],
-                               "parameters": action['parameters']}
+                               "parameters": local_action_parameters}
                 self.robot_end_signal = {}
-                self.robot_end_signal[action['parameters'][0]] = False
+                self.robot_end_signal[local_action_parameters[0]] = False
                 self.robot_publisher.publish(json.dumps(nao_message))
-                while not self.robot_end_signal[action['parameters'][0]]:
+                while not self.robot_end_signal[local_action_parameters[0]]:
                     pass
                 if action['next'] != 'end':
                     next_action = self.actions[action['next']]
@@ -175,7 +177,8 @@ class ManagerNode():
                 the_pair = sorted([int(i) for i in the_pair])
                 # Rinat: convert tablet ids to positions (1,2,3,4)
 
-                the_action = 'facilitator-6ea3b8/' + 'address_pair_%d_%d' % (int(the_pair[0]), int(the_pair[1]))
+
+                the_action = robot_behavior_path + 'address_pair_%d_%d' % (int(the_pair[0]), int(the_pair[1]))
                 nao_message = {"action": 'run_behavior',
                                "parameters": [the_action]}
                 self.robot_publisher.publish(json.dumps(nao_message))
@@ -629,7 +632,7 @@ class ManagerNode():
         self.run_robot_behavior(action)
 
         action = {"action":"show_screen", "screen_name":"ScreenActivityIntroduction",
-                  "activity_type":"end", "tablets":[1,2,3,4,5]}
+                  "activity_type": "end", "tablets":[1,2,3,4,5]}
         if '1' in self.session:
             action['activity'] = 'activity2'
         elif '2' in self.session:
