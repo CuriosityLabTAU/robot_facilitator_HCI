@@ -73,6 +73,9 @@ class ScreenMarkListImage (Screen):
             statements= self.activity4_statements
         if (self.current_statement < len(statements)):
             self.show_screen(self.activity, "statement_"+str(self.current_statement+1))
+        else:
+            self.the_app.screen_manager.current = 'ScreenActivityIntroduction'
+            self.the_app.screen_manager.current_screen.show_screen(self.activity, 'end')
 
     def show_screen(self, activity, activity_type):
         # activity: "activity1"/"activity2"

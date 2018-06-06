@@ -45,6 +45,9 @@ class ScreenScaleImage (Screen):
         elif (self.the_app.condition == 'tablet'):
             if (self.current_statement < len(self.activity6_statements)):
                 self.show_screen(self.activity, "statement_" + str(self.current_statement + 1))
+            else:
+                self.the_app.screen_manager.current = 'ScreenActivityIntroduction'
+                self.the_app.screen_manager.current_screen.show_screen(self.activity, 'end')
 
     def show_screen(self,activity,activity_type):
         # activity: "activity6"

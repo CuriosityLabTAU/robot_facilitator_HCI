@@ -43,14 +43,19 @@ class ScreenActivityIntroduction (Screen):
             self.ids['intro_continue'].opacity = 0
             self.ids['intro_continue'].disabled = True
         elif (self.the_app.condition =='tablet'):
-            if 'group' in self.activity_type:
-                self.ids['activity_text'].source = 'images/%s_group_intro.png' % self.activity
-            else:
-                self.ids['activity_text'].source = 'images/%s_intro.png' % self.activity
             self.ids['activity_text'].opacity = 1
             self.ids['activity_text'].disabled = False
             self.ids['activity_continue'].opacity = 1
             self.ids['activity_continue'].disabled = False
+
+            if 'group' in self.activity_type:
+                self.ids['activity_text'].source = 'images/%s_group_intro.png' % self.activity
+            elif 'end' in self.activity_type:
+                self.ids['activity_text'].source = 'images/%s_end.png' % self.activity
+                self.ids['activity_continue'].opacity = 0
+                self.ids['activity_continue'].disabled = True
+            else:
+                self.ids['activity_text'].source = 'images/%s_intro.png' % self.activity
 
     def on_btn_done(self):
         if '1' in self.activity:
