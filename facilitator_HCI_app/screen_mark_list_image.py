@@ -59,14 +59,15 @@ class ScreenMarkListImage (Screen):
         elif (self.activity == 'activity4'):
             statements = self.activity4_statements
 
-        if (self.the_app.condition == 'robot'):
-            mark_list = []
-            for ids in self.ids:
-                if 'check' in ids:
-                    if self.ids[ids].active:
-                        mark_list.append(ids)
-            KL.log.insert(action=LogAction.press, obj='btn_continue', comment=json.dumps(mark_list))
-        elif (self.the_app.condition =='tablet'):
+        mark_list = []
+        for ids in self.ids:
+            if 'check' in ids:
+                if self.ids[ids].active:
+                    mark_list.append(ids)
+        KL.log.insert(action=LogAction.press, obj='btn_continue_' + self.activity + '_' + self.activity_type,
+                      comment=json.dumps(mark_list))
+
+        if (self.the_app.condition =='tablet'):
             if (self.current_statement < len(statements)):
                 self.show_screen(self.activity, "statement_" + str(self.current_statement + 1))
             else:
@@ -115,9 +116,8 @@ class ScreenMarkListImage (Screen):
         parent_y = Window.height * 0.1
 
         for i,pos in enumerate(positions,1):
-            print('pos=',pos)
             self.ids['checkbox_'+str(i)].pos = parent_x + parent_width * pos[0], parent_y + parent_height * pos[1]
-            print(self.ids['checkbox_'+str(i)].pos)
+            self.ids['checkbox_' + str(i)].name = self.activity + '_' + self.activity_type + '_' + 'checkbox_' + str(i)
 
         # I didn't use the following code because we call this function before "on_enter" and the parent values are still not initiated
         # parent_width = self.ids['checkbox_1'].parent.width

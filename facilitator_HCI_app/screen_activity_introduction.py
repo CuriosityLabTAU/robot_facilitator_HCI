@@ -47,6 +47,7 @@ class ScreenActivityIntroduction (Screen):
             self.ids['activity_text'].disabled = False
             self.ids['activity_continue'].opacity = 1
             self.ids['activity_continue'].disabled = False
+            self.ids['activity_continue'].name = self.activity + '_' + self.activity_type + '_' + 'activity_continue'
 
             if 'group' in self.activity_type:
                 self.ids['activity_text'].source = 'images/%s_group_intro.png' % self.activity

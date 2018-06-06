@@ -35,14 +35,15 @@ class ScreenScaleImage (Screen):
 
     def on_btn_done(self):
         print("screen_scale_image on_btn_done")
-        if (self.the_app.condition == 'robot'):
-            mark_list = []
-            for ids in self.ids:
-                if 'check' in ids:
-                    if self.ids[ids].active:
-                        mark_list.append(ids)
-            KL.log.insert(action=LogAction.press, obj='btn_continue', comment=json.dumps(mark_list))
-        elif (self.the_app.condition == 'tablet'):
+        mark_list = []
+        for ids in self.ids:
+            if 'check' in ids:
+                if self.ids[ids].active:
+                    mark_list.append(ids)
+        KL.log.insert(action=LogAction.press, obj='btn_continue_' + self.activity + '_' + self.activity_type,
+                      comment=json.dumps(mark_list))
+
+        if (self.the_app.condition == 'tablet'):
             if (self.current_statement < len(self.activity6_statements)):
                 self.show_screen(self.activity, "statement_" + str(self.current_statement + 1))
             else:
@@ -52,10 +53,13 @@ class ScreenScaleImage (Screen):
     def show_screen(self,activity,activity_type):
         # activity: "activity6"
         # activity_type: "statement_1"/"statement_2"/"statement_3"/"statement_4"
+        self.activity = activity
+        self.activity_type = activity_type
+
         for ids in self.ids:
             if 'check' in ids:
                 self.ids[ids].active = False
-        self.activity = activity
+                self.ids[ids].name = self.activity + '_' + self.activity_type + '_' + ids
         self.current_statement = int(activity_type[10:])
         self.ids['label_instructions'].text = self.activity6_statements[activity_type]
         self.ids['timer_time'].start_timer(int(120))
