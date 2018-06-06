@@ -625,6 +625,25 @@ class ManagerNode():
     def the_end(self):
         action = {"action": "rest"}
         self.run_robot_behavior(action)
+
+        action = {"action":"show_screen", "screen_name":"ScreenActivityIntroduction",
+                  "activity_type":"end", "tablets":[1,2,3,4,5]}
+        if '1' in self.session:
+            action['activity'] = 'activity2'
+        elif '2' in self.session:
+            action['activity'] = 'activity4'
+        elif '3' in self.session:
+            action['activity'] = 'activity6'
+
+        for tablet_id in action['tablets']:
+            try:
+                client_ip = self.tablets_ips[str(tablet_id)]
+                message = action
+                message['client_ip'] = client_ip
+                self.tablet_publisher.publish(json.dumps(message))
+            except:
+                print('not enough tablets')
+
         print('THE END')
 
 if __name__ == '__main__':

@@ -54,6 +54,11 @@ class ScreenMarkListImage (Screen):
 
     def on_btn_done(self):
         print("screen_mark_list_image on_btn_done")
+        if (self.activity == 'activity2'):
+            statements = self.activity2_statements
+        elif (self.activity == 'activity4'):
+            statements = self.activity4_statements
+
         if (self.the_app.condition == 'robot'):
             mark_list = []
             for ids in self.ids:
@@ -62,20 +67,16 @@ class ScreenMarkListImage (Screen):
                         mark_list.append(ids)
             KL.log.insert(action=LogAction.press, obj='btn_continue', comment=json.dumps(mark_list))
         elif (self.the_app.condition =='tablet'):
-            self.show_next_statement()
+            if (self.current_statement < len(statements)):
+                self.show_screen(self.activity, "statement_" + str(self.current_statement + 1))
+            else:
+                self.the_app.screen_manager.current = 'ScreenActivityIntroduction'
+                self.the_app.screen_manager.current_screen.show_screen(self.activity, 'end')
 
     def show_next_statement(self):
         # this function is only called in the tablet condition. move to the next statement
         print("show_next_statement", self.activity, self.current_statement)
-        if (self.activity=='activity2'):
-            statements= self.activity2_statements
-        elif (self.activity=='activity4'):
-            statements= self.activity4_statements
-        if (self.current_statement < len(statements)):
-            self.show_screen(self.activity, "statement_"+str(self.current_statement+1))
-        else:
-            self.the_app.screen_manager.current = 'ScreenActivityIntroduction'
-            self.the_app.screen_manager.current_screen.show_screen(self.activity, 'end')
+
 
     def show_screen(self, activity, activity_type):
         # activity: "activity1"/"activity2"
