@@ -8,7 +8,8 @@ import threading
 import random
 
 
-robot_path = '/home/nao/naoqi/sounds/HCI/'
+robot_sound_path = '/home/nao/naoqi/sounds/HCI/'
+robot_behavior_path = 'facilitator-6ea3b8/'
 
 class ManagerNode():
 
@@ -129,9 +130,10 @@ class ManagerNode():
                 # go over parameters and add robot_path
                 for i, p in enumerate(action['parameters']):
                     if 'wait' not in p:
-                        action['parameters'][i] = robot_path + p
                         if "audio" in action["action"]:
-                            action['parameters'][i] += ".wav"
+                            action['parameters'][i] = robot_sound_path + p + ".wav"
+                        elif "behavior" in action["action"]:
+                            action['parameters'][i] = robot_behavior_path + p
 
                 nao_message = {"action": action['action'],
                                "parameters": action['parameters']}
@@ -178,7 +180,7 @@ class ManagerNode():
                                "parameters": [the_action]}
                 self.robot_publisher.publish(json.dumps(nao_message))
 
-                the_action = robot_path + 'general_not_same.wav'
+                the_action = robot_sound_path + 'general_not_same.wav'
                 nao_message = {"action": 'play_audio_file',
                                "parameters": [the_action]}
                 self.robot_publisher.publish(json.dumps(nao_message))
