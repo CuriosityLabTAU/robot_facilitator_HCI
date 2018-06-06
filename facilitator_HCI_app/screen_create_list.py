@@ -51,29 +51,33 @@ class ScreenCreateList (Screen):
         # called when the user clicks
         print ("screen_create_list: on_btn_done")
         if (self.the_app.condition == 'tablet'):   #todo: on tablet condition think what to do here...
-            if self.number_done == 0:
-                text = '2 רפסמ טלבאט לע תיתצובק המישר וניכהו ומייסי םלוכש וכח'
-                self.ids['label_instructions'].text = text
-                print("tablet_id",self.the_app.tablet_id)
-                if (self.the_app.tablet_id != '2'):
-                    self.disable_screen()
-                else:
-                    self.show_screen(self.activity, 'group')
-                self.number_done += 1
-            else:
-                self.next_activity()
+            self.next_activity()
+            # if self.number_done == 0:
+            #     text = '2 רפסמ טלבאט לע תיתצובק המישר וניכהו ומייסי םלוכש וכח'
+            #     self.ids['label_instructions'].text = text
+            #     print("tablet_id",self.the_app.tablet_id)
+            #     if (self.the_app.tablet_id != '2'):
+            #         self.disable_screen()
+            #     else:
+            #         self.show_screen(self.activity, 'group')
+            #     self.number_done += 1
+            # else:
+            #     self.next_activity()
 
     def next_activity(self):
-        if '1' in self.the_app.session:
-            self.the_app.screen_manager.current = 'ScreenMarkListImage'
-            self.the_app.screen_manager.current_screen.show_screen('activity2', 'statement_1')
-        elif '2' in self.the_app.session:
-            self.the_app.screen_manager.current = 'ScreenMarkListImage'
-            self.the_app.screen_manager.current_screen.show_screen('activity4', 'statement_1')
-        elif '3' in self.the_app.session:
-            self.the_app.screen_manager.current = 'ScreenScaleImage'
-            self.the_app.screen_manager.current_screen.show_screen('activity6', 'statement_1')
-
+        self.the_app.screen_manager.current = 'ScreenActivityIntroduction'
+        if '1' in self.activity and 'individual' in self.activity_type:
+            self.the_app.screen_manager.current_screen.show_screen('activity1', 'group')
+        elif '1' in self.activity and 'group' in self.activity_type:
+            self.the_app.screen_manager.current_screen.show_screen('activity2', 'individual')
+        elif '3' in self.activity and 'individual' in self.activity_type:
+            self.the_app.screen_manager.current_screen.show_screen('activity3', 'group')
+        elif '3' in self.activity and 'group' in self.activity_type:
+            self.the_app.screen_manager.current_screen.show_screen('activity4', 'individual')
+        elif '5' in self.activity and 'individual' in self.activity_type:
+            self.the_app.screen_manager.current_screen.show_screen('activity5', 'group')
+        elif '5' in self.activity and 'group' in self.activity_type:
+            self.the_app.screen_manager.current_screen.show_screen('activity6', 'individual')
 
     def data_received(self, data):
         print ("ScreenCreateList: data_received", data)
@@ -84,9 +88,15 @@ class ScreenCreateList (Screen):
     def show_screen(self, activity, activity_type):
         print ("screen_create_list: show_screen ", activity, activity_type)
         self.activity = activity
+        self.activity_type = activity_type
         self.update_label(activity,activity_type)
         if activity_type == "group":
-            if (self.the_app.tablet_id == '2'):
+            text = '2 רפסמ טלבאט לע תיתצובק המישר וניכהו ומייסי םלוכש וכח'
+            self.ids['label_instructions'].text = text
+            print("tablet_id", self.the_app.tablet_id)
+            if (self.the_app.tablet_id != '2'):
+                self.disable_screen()
+            else:
                 self.ids['text_input_4'].opacity = 1
                 self.ids['text_input_5'].opacity = 1
                 self.ids['text_input_1'].disabled = True

@@ -34,12 +34,16 @@ class ScreenRobotIntroduction (Screen):
         # activity_type: "statement_1"/"statement_2"/"statement_3"/"statement_4"
         print("screen_robot_introduction", activity, activity_type)
         if (self.the_app.condition =='robot'):
-            self.ids['intro_image'].source = 'images/introduction_robot.png'
+            self.ids['intro_text'].opacity = 0
+            self.ids['intro_text'].disabled = True
             self.ids['intro_continue'].opacity = 0
             self.ids['intro_continue'].disabled = True
         elif (self.the_app.condition =='tablet'):
-            self.ids['intro_image'].source = 'images/introduction_tablet.png'
+            self.ids['intro_text'].opacity = 1
+            self.ids['intro_text'].disabled = False
+            self.ids['intro_continue'].opacity = 1
+            self.ids['intro_continue'].disabled = False
 
     def on_btn_done(self):
-        self.the_app.screen_manager.current = 'ScreenCreateList'
+        self.the_app.screen_manager.current = 'ScreenActivityIntroduction'
         self.the_app.screen_manager.current_screen.show_screen('activity1', 'individual')

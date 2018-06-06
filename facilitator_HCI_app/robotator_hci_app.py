@@ -11,6 +11,7 @@ from screen_create_list import *
 from screen_scale_image import *
 from screen_mark_list_image import *
 from screen_robot_introduction import *
+from screen_activity_introduction import *
 from kivy.clock import *
 
 
@@ -68,23 +69,28 @@ class RobotatorHCIApp(App):
         screen_create_list = ScreenCreateList(self)
         screen_scale_image = ScreenScaleImage(self)
         screen_robot_introduction = ScreenRobotIntroduction(self)
+        screen_activity_introduction = ScreenActivityIntroduction(self)
         self.screen_manager.add_widget(screen_register)
         self.screen_manager.add_widget(screen_create_list)
         self.screen_manager.add_widget(screen_mark_list_image)
         self.screen_manager.add_widget(screen_scale_image)
         self.screen_manager.add_widget(screen_robot_introduction)
+        self.screen_manager.add_widget(screen_activity_introduction)
 
         # self.screen_manager.current = 'ScreenCreateList'  #'ScreenRegister'
         # self.screen_manager.current_screen.show_screen('activity1', 'individual')
 
-        #self.screen_manager.current = 'ScreenMarkListImage'
-        #self.screen_manager.current_screen.show_screen('activity2', 'statement_1')
+        # self.screen_manager.current = 'ScreenMarkListImage'
+        # self.screen_manager.current_screen.show_screen('activity2', 'statement_1')
 
         # self.screen_manager.current = 'ScreenScaleImage'
         # self.screen_manager.current_screen.show_screen('activity6', 'statement_1')
 
         self.screen_manager.current = 'ScreenRegister'
-        #self.screen_manager.current = 'ScreenRobotIntroduction'
+        # self.screen_manager.current = 'ScreenRobotIntroduction'
+
+        # self.screen_manager.current = 'ScreenActivityIntroduction'
+        # self.screen_manager.current_screen.show_screen('activity2', 'individual')
 
 
         #self.screen_manager.current_screen.start_activity()
@@ -148,10 +154,10 @@ class RobotatorHCIApp(App):
                 self.screen_manager.current = 'ScreenRobotIntroduction'
                 self.screen_manager.current_screen.show_screen('introduction', 'individual')
             elif (self.session =='session2'):
-                self.screen_manager.current = 'ScreenCreateList'
+                self.screen_manager.current = 'ScreenActivityIntroduction'
                 self.screen_manager.current_screen.show_screen('activity3', 'individual')
             elif (self.session =='session3'):
-                self.screen_manager.current = 'ScreenCreateList'
+                self.screen_manager.current = 'ScreenActivityIntroduction'
                 self.screen_manager.current_screen.show_screen('activity5', 'individual')
 
     def data_received(self, data):
