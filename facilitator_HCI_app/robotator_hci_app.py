@@ -58,7 +58,7 @@ class RobotatorHCIApp(App):
     def build(self):
         self.the_app = self
         Builder.load_file("robotatorHCI.kv")
-        self.basic_server_ip = '192.168.0.10'
+        self.basic_server_ip = '192.168.0.1'
         self.server_ip_end = 0
         self.tablet_id = 0
         self.condition = 'tablet'
@@ -103,7 +103,10 @@ class RobotatorHCIApp(App):
     # ==========================================================================
 
     def try_connection(self):
-        server_ip = self.basic_server_ip + str(self.server_ip_end)
+        if (self.server_ip_end<10):
+            server_ip = self.basic_server_ip +'0'+ str(self.server_ip_end)
+        else:
+            server_ip = self.basic_server_ip + str(self.server_ip_end)
         KC.start(the_parents=[self], the_ip=server_ip)  # 127.0.0.1
         KL.start(mode=[DataMode.file, DataMode.communication, DataMode.ros], pathname=self.user_data_dir,
                  the_ip=server_ip)
@@ -111,7 +114,7 @@ class RobotatorHCIApp(App):
     def failed_connection(self):
         print("failed_connection", self.server_ip_end)
         self.server_ip_end += 1
-        if self.server_ip_end < 10:
+        if self.server_ip_end < 15:
             self.try_connection()
         else:
            self.screen_manager.get_screen('ScreenRegister').ids['callback_label'].text = 'stand alone ' + str(self.server_ip_end)
