@@ -13,7 +13,7 @@ robot_behavior_path = 'facilitator-6ea3b8/'
 
 class ManagerNode():
 
-    number_of_tablets = 2
+    number_of_tablets = 4
     tablets = {}    #in the form of {tablet_id_1:{"subject_id":subject_id, "tablet_ip";tablet_ip}
                                     #,tablet_id_2:{"subject_id":subject_id, "tablet_ip";tablet_ip}
 
